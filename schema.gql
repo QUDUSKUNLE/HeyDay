@@ -1,0 +1,51 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Company {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Employee {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  companies: [Company!]!
+  company(id: Int!): Company!
+  employees: [Employee!]!
+  employee(id: Int!): Employee!
+}
+
+type Mutation {
+  createCompany(createCompanyInput: CreateCompanyInput!): Company!
+  updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
+  removeCompany(id: Int!): Company!
+  createEmployee(createEmployeeInput: CreateEmployeeInput!): Employee!
+  updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
+  removeEmployee(id: Int!): Employee!
+}
+
+input CreateCompanyInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCompanyInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateEmployeeInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateEmployeeInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
