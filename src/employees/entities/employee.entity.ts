@@ -1,7 +1,40 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+} from 'typeorm';
+import { ObjectType, Field } from '@nestjs/graphql';
+import { Company } from '../../companies/entities/company.entity';
 
 @ObjectType()
+@Entity()
 export class Employee {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+  @Field()
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @Field()
+  @Column({ length: 500, nullable: false })
+  name: string;
+
+  @Field(() => Company, { nullable: true })
+  @OneToMany(() => Company, (company) => company.id)
+  companyId: Company;
+
+  @Field()
+  @Column()
+  amountSpent: number;
+
+  @Field()
+  @Column()
+  @CreateDateColumn()
+  created_at: Date;
+
+  @Field()
+  @Column()
+  @UpdateDateColumn()
+  updated_at: Date;
 }
