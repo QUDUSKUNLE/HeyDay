@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { CreateEmployee } from './dto/create-employee.input';
 import { UpdateEmployee } from './dto/update-employee.input';
-import { Employee } from './entities/employee.entity';
+import { Employee } from '../entities/employee.entity';
 
 @Injectable()
 export class EmployeesService {
@@ -20,8 +20,12 @@ export class EmployeesService {
    * @param  {CreateEmployeeInput} createEmployee
    */
   async create(createEmployee: CreateEmployee) {
-    console.log(createEmployee);
-    return await this.employeeRepository.save(createEmployee);
+    try {
+      const employee = await this.employeeRepository.save(createEmployee);
+      return employee;
+    } catch (error) {
+      throw error;
+    }
   }
 
   /**
@@ -32,22 +36,22 @@ export class EmployeesService {
   }
 
   /**
-   * @param  {number} id
+   * @param  {string} id
    * @returns Promise
    */
-  async findOne(id: number): Promise<Employee | string> {
+  async findOne(id: string): Promise<Employee | string> {
     const employee = await this.employeeRepository.findOneOrFail(id);
     if (!employee.id) return 'Employee does not exist';
     return employee;
   }
 
   /**
-   * @param  {number} id
+   * @param  {string} id
    * @param  {Employees} updateEmployee
    * @returns Promise
    */
   async update(
-    id: number,
+    id: string,
     updateEmployee: UpdateEmployee,
   ): Promise<Employee | string> {
     const employee = await this.employeeRepository.findOne(id);
@@ -57,10 +61,10 @@ export class EmployeesService {
   }
 
   /**
-   * @param  {number} id
+   * @param  {string} id
    * @returns Promise
    */
-  async remove(id: number): Promise<DeleteResult> {
+  async remove(id: string): Promise<DeleteResult> {
     return await this.employeeRepository.delete(id);
   }
 }

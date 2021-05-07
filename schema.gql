@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 type Company {
-  id: Float!
+  id: String!
   name: String!
   address: String!
   title: String!
@@ -19,7 +19,7 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Employee {
-  id: Float!
+  id: String!
   name: String!
   company: Company!
   amountSpent: Float!
@@ -29,18 +29,18 @@ type Employee {
 
 type Query {
   companies: [Company!]!
-  company(id: Float!): Company!
+  company(id: String!): Company!
   employees: [Employee!]!
-  employee(id: Float!): Employee!
+  employee(id: String!): Employee!
 }
 
 type Mutation {
   createCompany(createCompany: CreateCompany!): Company!
   updateCompany(updateCompany: UpdateCompany!): Company!
-  removeCompany(id: Float!): Company!
+  removeCompany(id: String!): Company!
   createEmployee(createEmployee: CreateEmployee!): Employee!
   updateEmployee(updateEmployee: UpdateEmployee!): Employee!
-  removeEmployee(id: Float!): Employee!
+  removeEmployee(id: String!): Employee!
 }
 
 input CreateCompany {
@@ -56,6 +56,7 @@ input CreateCompany {
 }
 
 input UpdateCompany {
+  id: String!
   name: String!
   address: String!
   title: String!
@@ -65,20 +66,21 @@ input UpdateCompany {
 
   """Amount budgted for an employee"""
   budget: Int!
-  id: Float!
 }
 
 input CreateEmployee {
   name: String!
+  company: CreateCompany!
 
   """Amount spent on voucher"""
   amountSpent: Int!
 }
 
 input UpdateEmployee {
+  id: String!
   name: String!
+  company: CreateCompany!
 
   """Amount spent on voucher"""
   amountSpent: Int!
-  id: Float!
 }

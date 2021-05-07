@@ -2,9 +2,9 @@ import { CreateCompany } from './create-company.input';
 import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateCompany extends PartialType(CreateCompany) {
+export class UpdateCompany {
   @Field()
-  readonly id: number;
+  readonly id: string;
 
   @Field()
   readonly name: string;

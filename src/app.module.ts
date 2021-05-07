@@ -2,12 +2,12 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { Company } from './companies/entities/company.entity';
+import { Company } from './entities/company.entity';
 import { CompaniesModule } from './companies/companies.module';
 import { CompaniesResolver } from './companies/companies.resolver';
 import { CompaniesService } from './companies/companies.service';
 
-import { Employee } from './employees/entities/employee.entity';
+import { Employee } from './entities/employee.entity';
 import { EmployeesModule } from './employees/employees.module';
 import { EmployeesResolver } from './employees/employees.resolver';
 import { EmployeesService } from './employees/employees.service';

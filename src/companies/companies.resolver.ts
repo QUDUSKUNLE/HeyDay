@@ -1,7 +1,7 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { DeleteResult } from 'typeorm';
 import { CompaniesService } from './companies.service';
-import { Company } from './entities/company.entity';
+import { Company } from '../entities/company.entity';
 import { CreateCompany } from './dto/create-company.input';
 import { UpdateCompany } from './dto/update-company.input';
 
@@ -20,7 +20,7 @@ export class CompaniesResolver {
   }
 
   @Query(() => Company, { name: 'company' })
-  findOne(@Args('id') id: number): Promise<Company | string> {
+  findOne(@Args('id') id: string): Promise<Company | string> {
     return this.companiesService.findOne(id);
   }
 
@@ -30,7 +30,7 @@ export class CompaniesResolver {
   }
 
   @Mutation(() => Company)
-  removeCompany(@Args('id') id: number): Promise<DeleteResult> {
+  removeCompany(@Args('id') id: string): Promise<DeleteResult> {
     return this.companiesService.remove(id);
   }
 }

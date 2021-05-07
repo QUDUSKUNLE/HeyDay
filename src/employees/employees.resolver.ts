@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { EmployeesService } from './employees.service';
-import { Employee } from './entities/employee.entity';
+import { Employee } from '../entities/employee.entity';
 import { CreateEmployee } from './dto/create-employee.input';
 import { UpdateEmployee } from './dto/update-employee.input';
 
@@ -19,7 +19,7 @@ export class EmployeesResolver {
   }
 
   @Query(() => Employee, { name: 'employee' })
-  findOne(@Args('id') id: number) {
+  findOne(@Args('id') id: string) {
     return this.employeesService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class EmployeesResolver {
   }
 
   @Mutation(() => Employee)
-  removeEmployee(@Args('id') id: number) {
+  removeEmployee(@Args('id') id: string) {
     return this.employeesService.remove(id);
   }
 }

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
 import { CreateCompany } from './dto/create-company.input';
 import { UpdateCompany } from './dto/update-company.input';
-import { Company } from './entities/company.entity';
+import { Company } from '../entities/company.entity';
 
 @Injectable()
 export class CompaniesService {
@@ -31,35 +31,35 @@ export class CompaniesService {
   }
 
   /**
-   * @param  {number} id
+   * @param  {string} id
    * @returns Promise
    */
-  async findOne(id: number): Promise<Company | string> {
-    const company = await this.companyRepository.findOneOrFail(id);
-    if (!company.id) return 'Company does not exist';
+  async findOne(id: string): Promise<Company | string> {
+    const company = await this.companyRepository.findOne(id);
+    if (!company) return 'Company does not exist';
     return company;
   }
 
   /**
-   * @param  {number} id
+   * @param  {string} id
    * @param  {UpdateCompanyInput} updateCompanyInput
    * @returns Promise
    */
   async update(
-    id: number,
+    id: string,
     updateCompany: UpdateCompany,
   ): Promise<Company | string> {
-    const company = await this.companyRepository.findOneOrFail(id);
-    if (!company.id) return 'Company does not exist';
+    const company = await this.companyRepository.findOne(id);
+    if (!company) return 'Company does not exist';
     await this.companyRepository.update(id, updateCompany);
     return await this.companyRepository.findOne(id);
   }
 
   /**
-   * @param  {number} id
+   * @param  {string} id
    * @returns Promise
    */
-  async remove(id: number): Promise<DeleteResult> {
+  async remove(id: string): Promise<DeleteResult> {
     return await this.companyRepository.delete(id);
   }
 }

@@ -4,15 +4,16 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  BaseEntity,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
-export class Company {
+export class Company extends BaseEntity {
   @Field()
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Field()
   @Column({ length: 500, nullable: false, unique: true })
