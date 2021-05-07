@@ -1,34 +1,66 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateCompanyInput } from './dto/create-company.input';
-import { UpdateCompanyInput } from './dto/update-company.input';
-import { Companies } from './interfaces/companies.interface';
-import { Company } from './entities/company.entity';
+import { Repository, DeleteResult } from 'typeorm';
+
+import { CreateCompany } from './dto/create-company.input';
+import { UpdateCompany } from './dto/update-company.input';
+import { Company } from '../entities/company.entity';
 
 @Injectable()
 export class CompaniesService {
+  /**
+   * @param  {} @InjectRepository(Company
+   * @param  {Repository<Companies>} privatecompanyRepository
+   */
   constructor(
     @InjectRepository(Company)
-    private companyRepository: Repository<Companies>
+    private companyRepository: Repository<Company>,
   ) {}
-  create(createCompanyInput: CreateCompanyInput) {
-    return 'This action adds a new company';
+
+  /**
+   * @param  {CreateCompanyInput} createCompany
+   */
+  async create(createCompany: CreateCompany) {
+    return await this.companyRepository.save(createCompany);
   }
 
-  findAll() {
-    return `This action returns all companies`;
+  /**
+   * @returns Promise
+   */
+  async findAll(): Promise<Company[]> {
+    return await this.companyRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} company`;
+  /**
+   * @param  {number} id
+   * @returns Promise
+   */
+  async findOne(id: number): Promise<Company | string> {
+    const company = await this.companyRepository.findOne(id);
+    if (!company) return 'Company does not exist';
+    return company;
   }
 
-  update(id: number, updateCompanyInput: UpdateCompanyInput) {
-    return `This action updates a #${id} company`;
+  /**
+   * @param  {number} id
+   * @param  {UpdateCompanyInput} updateCompanyInput
+   * @returns Promise
+   */
+  async update(
+    id: number,
+    updateCompany: UpdateCompany,
+  ): Promise<Company | string> {
+    const company = await this.companyRepository.findOne(id);
+    if (!company) return 'Company does not exist';
+    await this.companyRepository.update(id, updateCompany);
+    return await this.companyRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  /**
+   * @param  {number} id
+   * @returns Promise
+   */
+  async remove(id: number): Promise<DeleteResult> {
+    return await this.companyRepository.delete(id);
   }
 }

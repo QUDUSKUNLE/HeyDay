@@ -1,34 +1,70 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { CreateEmployeeInput } from './dto/create-employee.input';
-import { UpdateEmployeeInput } from './dto/update-employee.input';
-import { Employees } from './interfaces/employees.interface';
-import { Employee } from './entities/employee.entity';
+import { Repository, DeleteResult } from 'typeorm';
+import { CreateEmployee } from './dto/create-employee.input';
+import { UpdateEmployee } from './dto/update-employee.input';
+import { Employee } from '../entities/employee.entity';
 
 @Injectable()
 export class EmployeesService {
+  /**
+   * @param  {} @InjectRepository(Employee
+   * @param  {Repository<Employee>} privateemployeeRepository
+   */
   constructor(
     @InjectRepository(Employee)
-    private employeeRespository: Repository<Employees>
+    private employeeRepository: Repository<Employee>,
   ) {}
-  create(createEmployeeInput: CreateEmployeeInput) {
-    return 'This action adds a new employee';
+
+  /**
+   * @param  {CreateEmployeeInput} createEmployee
+   */
+  async create(createEmployee: CreateEmployee) {
+    try {
+      const employee = await this.employeeRepository.save(createEmployee);
+      return employee;
+    } catch (error) {
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all employees`;
+  /**
+   * @returns Promise
+   */
+  async findAll(): Promise<Employee[]> {
+    return await this.employeeRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} employee`;
+  /**
+   * @param  {number} id
+   * @returns Promise
+   */
+  async findOne(id: number): Promise<Employee | string> {
+    const employee = await this.employeeRepository.findOneOrFail(id);
+    if (!employee.id) return 'Employee does not exist';
+    return employee;
   }
 
-  update(id: number, updateEmployeeInput: UpdateEmployeeInput) {
-    return `This action updates a #${id} employee`;
+  /**
+   * @param  {number} id
+   * @param  {Employees} updateEmployee
+   * @returns Promise
+   */
+  async update(
+    id: number,
+    updateEmployee: UpdateEmployee,
+  ): Promise<Employee | string> {
+    const employee = await this.employeeRepository.findOne(id);
+    if (!employee.id) return 'Employee does not exist';
+    await this.employeeRepository.update(id, updateEmployee);
+    return await this.employeeRepository.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} employee`;
+  /**
+   * @param  {number} id
+   * @returns Promise
+   */
+  async remove(id: number): Promise<DeleteResult> {
+    return await this.employeeRepository.delete(id);
   }
 }

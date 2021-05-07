@@ -1,17 +1,26 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppService } from './app.service';
 
-import { Company } from './companies/entities/company.entity';
+import { Company } from './entities/company.entity';
 import { CompaniesModule } from './companies/companies.module';
 import { CompaniesResolver } from './companies/companies.resolver';
 import { CompaniesService } from './companies/companies.service';
-import { Employee } from './employees/entities/employee.entity';
+
+import { Employee } from './entities/employee.entity';
 import { EmployeesModule } from './employees/employees.module';
 import { EmployeesResolver } from './employees/employees.resolver';
 import { EmployeesService } from './employees/employees.service';
+
+import { Voucher } from './entities/voucher.entity';
+import { VouchersModule } from './vouchers/vouchers.module';
+import { VouchersResolver } from './vouchers/vouchers.resolver';
+import { VouchersService } from './vouchers/vouchers.service';
+
+import { Order } from './entities/order.entity';
+import { OrdersModule } from './orders/orders.module';
+import { OrdersResolver } from './orders/orders.resolver';
+import { OrdersService } from './orders/orders.service';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -24,19 +33,25 @@ import { EmployeesService } from './employees/employees.service';
       username: 'postgres',
       password: 'Boluwatife08971',
       database: 'heyday',
-      entities: [Company, Employee],
+      entities: [Company, Employee, Voucher, Order],
       synchronize: true,
     }),
     CompaniesModule,
     EmployeesModule,
+    VouchersModule,
+    OrdersModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [
-    AppService,
     CompaniesResolver,
     EmployeesResolver,
+    VouchersResolver,
+    OrdersResolver,
+
     CompaniesService,
     EmployeesService,
+    VouchersService,
+    OrdersService,
   ],
 })
 export class AppModule {}

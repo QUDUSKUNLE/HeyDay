@@ -1,17 +1,17 @@
-import { CreateEmployeeInput } from './create-employee.input';
-import { InputType, Field, Int, PartialType } from '@nestjs/graphql';
+import { InputType, Field, Int, Float } from '@nestjs/graphql';
+import { CreateCompany }  from '../../companies/dto/create-company.input';
 
 @InputType()
-export class UpdateEmployeeInput extends PartialType(CreateEmployeeInput) {
-  @Field()
+export class UpdateEmployee {
+  @Field(() => Int, { description: 'Employee id' })
   readonly id: number;
 
   @Field()
   readonly name: string;
 
   @Field()
-  readonly companyId: string;
+  readonly company: CreateCompany;
 
-  @Field(() => Int, { description: 'Amount spent on voucher' })
-  readonly amountSpent: number;
+  @Field(() => Float, { description: 'Amount spent on voucher' })
+  readonly amount_spent: number;
 }
