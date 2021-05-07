@@ -3,18 +3,33 @@
 # ------------------------------------------------------
 
 type Company {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Float!
+  name: String!
+  address: String!
+  title: String!
+  revenue: Float!
+  budget: Float!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Employee {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  id: Float!
+  name: String!
+  companyId: Company
+  amountSpent: Float!
+  created_at: DateTime!
+  updated_at: DateTime!
 }
 
 type Query {
   companies: [Company!]!
-  company(id: Int!): Company!
+  company(id: Float!): Company!
   employees: [Employee!]!
   employee(id: Int!): Employee!
 }
@@ -22,30 +37,50 @@ type Query {
 type Mutation {
   createCompany(createCompanyInput: CreateCompanyInput!): Company!
   updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
-  removeCompany(id: Int!): Company!
+  removeCompany(id: Float!): Company!
   createEmployee(createEmployeeInput: CreateEmployeeInput!): Employee!
   updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
-  removeEmployee(id: Int!): Employee!
+  removeEmployee(id: Float!): Employee!
 }
 
 input CreateCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  address: String!
+  title: String!
+
+  """Company revenue"""
+  revenue: Int!
+
+  """Amount budgted for an employee"""
+  budget: Int!
 }
 
 input UpdateCompanyInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  name: String!
+  address: String!
+  title: String!
+
+  """Company revenue"""
+  revenue: Int!
+
+  """Amount budgted for an employee"""
+  budget: Int!
+  id: Float!
 }
 
 input CreateEmployeeInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  companyId: String!
+
+  """Amount spent on voucher"""
+  amountSpent: Int!
 }
 
 input UpdateEmployeeInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  name: String!
+  companyId: String!
+
+  """Amount spent on voucher"""
+  amountSpent: Int!
+  id: Float!
 }
