@@ -22,7 +22,7 @@ export class Employee {
 
   @Field(() => Company, { nullable: true })
   @OneToMany(() => Company, (company) => company.id)
-  companyId: Company;
+  companyId: Company['id'];
 
   @Field()
   @Column()

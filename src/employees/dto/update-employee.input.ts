@@ -10,7 +10,7 @@ export class UpdateEmployeeInput extends PartialType(CreateEmployeeInput) {
   readonly name: string;
 
   @Field()
-  readonly companyId: string;
+  readonly companyId: number;
 
   @Field(() => Int, { description: 'Amount spent on voucher' })
   readonly amountSpent: number;

@@ -70,7 +70,7 @@ input UpdateCompanyInput {
 
 input CreateEmployeeInput {
   name: String!
-  companyId: String!
+  companyId: Float!
 
   """Amount spent on voucher"""
   amountSpent: Int!
@@ -78,7 +78,7 @@ input CreateEmployeeInput {
 
 input UpdateEmployeeInput {
   name: String!
-  companyId: String!
+  companyId: Float!
 
   """Amount spent on voucher"""
   amountSpent: Int!
