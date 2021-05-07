@@ -1,9 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeleteResult } from 'typeorm';
-import { CreateCompanyInput } from './dto/create-company.input';
-import { UpdateCompanyInput } from './dto/update-company.input';
-import { Companies } from './interfaces/companies.interface';
+import { CreateCompany } from './dto/create-company.input';
+import { UpdateCompany } from './dto/update-company.input';
 import { Company } from './entities/company.entity';
 
 @Injectable()
@@ -15,20 +14,20 @@ export class CompaniesService {
    */
   constructor(
     @InjectRepository(Company)
-    private companyRepository: Repository<Companies>,
+    private companyRepository: Repository<Company>,
   ) {}
 
   /**
-   * @param  {CreateCompanyInput} createCompanyInput
+   * @param  {CreateCompanyInput} createCompany
    */
-  create(createCompanyInput: CreateCompanyInput) {
-    return this.companyRepository.insert(createCompanyInput);
+  create(createCompany: CreateCompany) {
+    return this.companyRepository.insert(createCompany);
   }
 
   /**
    * @returns Promise
    */
-  findAll(): Promise<Companies[]> {
+  findAll(): Promise<Company[]> {
     return this.companyRepository.find();
   }
 
@@ -36,7 +35,7 @@ export class CompaniesService {
    * @param  {number} id
    * @returns Promise
    */
-  async findOne(id: number): Promise<Companies | string> {
+  async findOne(id: number): Promise<Company | string> {
     const company = await this.companyRepository.findOneOrFail(id);
     if (!company.id) return 'Company does not exist';
     return company;
@@ -49,11 +48,11 @@ export class CompaniesService {
    */
   async update(
     id: number,
-    updateCompanyInput: UpdateCompanyInput,
-  ): Promise<Companies | string> {
+    updateCompany: UpdateCompany,
+  ): Promise<Company | string> {
     const company = await this.companyRepository.findOneOrFail(id);
     if (!company.id) return 'Company does not exist';
-    await this.companyRepository.update(id, updateCompanyInput);
+    await this.companyRepository.update(id, updateCompany);
     return await this.companyRepository.findOne(id);
   }
 
