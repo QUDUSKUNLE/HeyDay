@@ -4,7 +4,7 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from 'typeorm';
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Company } from '../../companies/entities/company.entity';
@@ -20,9 +20,9 @@ export class Employee {
   @Column({ length: 500, nullable: false })
   name: string;
 
-  @Field(() => Company, { nullable: true })
-  @OneToMany(() => Company, (company) => company.id)
-  companyId: Company['id'];
+  @Field()
+  @ManyToOne(() => Company, (company) => company.id)
+  company: Company;
 
   @Field()
   @Column()

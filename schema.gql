@@ -21,7 +21,7 @@ scalar DateTime
 type Employee {
   id: Float!
   name: String!
-  companyId: Company
+  company: Company!
   amountSpent: Float!
   created_at: DateTime!
   updated_at: DateTime!
@@ -31,19 +31,19 @@ type Query {
   companies: [Company!]!
   company(id: Float!): Company!
   employees: [Employee!]!
-  employee(id: Int!): Employee!
+  employee(id: Float!): Employee!
 }
 
 type Mutation {
-  createCompany(createCompanyInput: CreateCompanyInput!): Company!
-  updateCompany(updateCompanyInput: UpdateCompanyInput!): Company!
+  createCompany(createCompany: CreateCompany!): Company!
+  updateCompany(updateCompany: UpdateCompany!): Company!
   removeCompany(id: Float!): Company!
-  createEmployee(createEmployeeInput: CreateEmployeeInput!): Employee!
-  updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): Employee!
+  createEmployee(createEmployee: CreateEmployee!): Employee!
+  updateEmployee(updateEmployee: UpdateEmployee!): Employee!
   removeEmployee(id: Float!): Employee!
 }
 
-input CreateCompanyInput {
+input CreateCompany {
   name: String!
   address: String!
   title: String!
@@ -55,7 +55,7 @@ input CreateCompanyInput {
   budget: Int!
 }
 
-input UpdateCompanyInput {
+input UpdateCompany {
   name: String!
   address: String!
   title: String!
@@ -68,17 +68,15 @@ input UpdateCompanyInput {
   id: Float!
 }
 
-input CreateEmployeeInput {
+input CreateEmployee {
   name: String!
-  companyId: Float!
 
   """Amount spent on voucher"""
   amountSpent: Int!
 }
 
-input UpdateEmployeeInput {
+input UpdateEmployee {
   name: String!
-  companyId: Float!
 
   """Amount spent on voucher"""
   amountSpent: Int!
