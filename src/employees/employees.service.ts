@@ -7,7 +7,6 @@ import { Employee } from './entities/employee.entity';
 
 @Injectable()
 export class EmployeesService {
-
   /**
    * @param  {} @InjectRepository(Employee
    * @param  {Repository<Employee>} privateemployeeRepository
@@ -20,15 +19,16 @@ export class EmployeesService {
   /**
    * @param  {CreateEmployeeInput} createEmployee
    */
-  create(createEmployee: CreateEmployee) {
-    return this.employeeRepository.insert(createEmployee);
+  async create(createEmployee: CreateEmployee) {
+    console.log(createEmployee);
+    return await this.employeeRepository.save(createEmployee);
   }
 
   /**
    * @returns Promise
    */
-  findAll(): Promise<Employee[]> {
-    return this.employeeRepository.find();
+  async findAll(): Promise<Employee[]> {
+    return await this.employeeRepository.find();
   }
 
   /**

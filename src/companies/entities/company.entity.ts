@@ -15,7 +15,7 @@ export class Company {
   id: number;
 
   @Field()
-  @Column({ length: 500, nullable: false })
+  @Column({ length: 500, nullable: false, unique: true })
   name: string;
 
   @Field()

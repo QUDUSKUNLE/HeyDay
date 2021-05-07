@@ -7,7 +7,6 @@ import { Company } from './entities/company.entity';
 
 @Injectable()
 export class CompaniesService {
-
   /**
    * @param  {} @InjectRepository(Company
    * @param  {Repository<Companies>} privatecompanyRepository
@@ -20,15 +19,15 @@ export class CompaniesService {
   /**
    * @param  {CreateCompanyInput} createCompany
    */
-  create(createCompany: CreateCompany) {
-    return this.companyRepository.insert(createCompany);
+  async create(createCompany: CreateCompany) {
+    return await this.companyRepository.save(createCompany);
   }
 
   /**
    * @returns Promise
    */
-  findAll(): Promise<Company[]> {
-    return this.companyRepository.find();
+  async findAll(): Promise<Company[]> {
+    return await this.companyRepository.find();
   }
 
   /**

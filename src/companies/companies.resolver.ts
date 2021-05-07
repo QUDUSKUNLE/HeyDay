@@ -15,7 +15,7 @@ export class CompaniesResolver {
   }
 
   @Query(() => [Company], { name: 'companies' })
-  findAll(): Promise<Company[]> {
+  createCompanyfindAll(): Promise<Company[]> {
     return this.companiesService.findAll();
   }
 
