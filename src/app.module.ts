@@ -11,8 +11,16 @@ import { Employee } from './entities/employee.entity';
 import { EmployeesModule } from './employees/employees.module';
 import { EmployeesResolver } from './employees/employees.resolver';
 import { EmployeesService } from './employees/employees.service';
+
+import { Voucher } from './entities/voucher.entity';
 import { VouchersModule } from './vouchers/vouchers.module';
+import { VouchersResolver } from './vouchers/vouchers.resolver';
+import { VouchersService } from './vouchers/vouchers.service';
+
+import { Order } from './entities/order.entity';
 import { OrdersModule } from './orders/orders.module';
+import { OrdersResolver } from './orders/orders.resolver';
+import { OrdersService } from './orders/orders.service';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -25,7 +33,7 @@ import { OrdersModule } from './orders/orders.module';
       username: 'postgres',
       password: 'Boluwatife08971',
       database: 'heyday',
-      entities: [Company, Employee],
+      entities: [Company, Employee, Voucher, Order],
       synchronize: true,
     }),
     CompaniesModule,
@@ -37,8 +45,13 @@ import { OrdersModule } from './orders/orders.module';
   providers: [
     CompaniesResolver,
     EmployeesResolver,
+    VouchersResolver,
+    OrdersResolver,
+
     CompaniesService,
     EmployeesService,
+    VouchersService,
+    OrdersService,
   ],
 })
 export class AppModule {}

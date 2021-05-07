@@ -4,9 +4,9 @@ import { CreateVoucher } from '../../vouchers/dto/create-voucher.input';
 
 @InputType()
 export class CreateOrder {
-  @Field({ description: 'Employee id' })
+  @Field(() => CreateEmployee, { description: 'Employee id' })
   employee: CreateEmployee;
 
-  @Field({ description: 'Voucher id' })
+  @Field(() => CreateVoucher, { description: 'Voucher id' })
   voucher: CreateVoucher;
 }

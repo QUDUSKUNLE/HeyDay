@@ -28,13 +28,13 @@ export class Order extends BaseEntity {
   @CreateDateColumn()
   created_at: Date;
 
-  @Field(() => [Employee], { description: 'Employee id' })
+  @Field(() => Employee, { description: 'Employee id' })
   @ManyToMany(() => Employee, (employee) => employee.id, { primary: true })
-  employee: Employee[];
+  employee: Employee;
 
-  @Field(() => [Voucher], { description: 'Voucher id' })
+  @Field(() => Voucher, { description: 'Voucher id' })
   @ManyToMany(() => Voucher, (voucher) => voucher.id, { primary: true })
-  voucher: Voucher[];
+  voucher: Voucher;
 
   @Field({ description: 'Date order updated' })
   @Column({ type: 'datetime' })

@@ -81,10 +81,10 @@ type Order {
   created_at: DateTime!
 
   """Employee id"""
-  employee: [Employee!]!
+  employee: Employee!
 
   """Voucher id"""
-  voucher: [Voucher!]!
+  voucher: Voucher!
 
   """Date order updated"""
   updated_at: DateTime!
@@ -108,8 +108,8 @@ type Mutation {
   createEmployee(createEmployee: CreateEmployee!): Employee!
   updateEmployee(updateEmployee: UpdateEmployee!): Employee!
   removeEmployee(id: Float!): Employee!
-  createVoucher(createVoucherInput: CreateVoucher!): Voucher!
-  updateVoucher(updateVoucherInput: UpdateVoucher!): Voucher!
+  createVoucher(createVoucher: CreateVoucher!): Voucher!
+  updateVoucher(updateVoucher: UpdateVoucher!): Voucher!
   removeVoucher(id: Int!): Voucher!
   createOrder(createOrderInput: CreateOrder!): Order!
   updateOrder(updateOrderInput: UpdateOrder!): Order!
