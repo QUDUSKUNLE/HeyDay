@@ -6,6 +6,6 @@ export class CreateVoucher {
   @Field(() => Float, { description: 'Voucher cost' })
   cost: number;
 
-  @Field()
+  @Field({ description: 'Voucher currency' })
   currency: Currency;
 }

@@ -15,6 +15,9 @@ type Company {
   """Company title"""
   title: String!
 
+  """Company currency"""
+  currency: String!
+
   """Company revenue"""
   revenue: Float!
 
@@ -24,7 +27,7 @@ type Company {
   """Date company joined"""
   created_at: DateTime!
 
-  """Date company updated"""
+  """Date company is updated"""
   updated_at: DateTime!
 }
 
@@ -102,14 +105,14 @@ type Query {
 }
 
 type Mutation {
-  createCompany(createCompany: CreateCompany!): Company!
-  updateCompany(updateCompany: UpdateCompany!): Company!
+  createCompany(createCompanyInput: CreateCompany!): Company!
+  updateCompany(updateCompanyInput: UpdateCompany!): Company!
   removeCompany(id: Float!): Company!
-  createEmployee(createEmployee: CreateEmployee!): Employee!
-  updateEmployee(updateEmployee: UpdateEmployee!): Employee!
+  createEmployee(createEmployeeInput: CreateEmployee!): Employee!
+  updateEmployee(updateEmployeeInput: UpdateEmployee!): Employee!
   removeEmployee(id: Float!): Employee!
-  createVoucher(createVoucher: CreateVoucher!): Voucher!
-  updateVoucher(updateVoucher: UpdateVoucher!): Voucher!
+  createVoucher(createVoucherInput: CreateVoucher!): Voucher!
+  updateVoucher(updateVoucherInput: UpdateVoucher!): Voucher!
   removeVoucher(id: Int!): Voucher!
   createOrder(createOrderInput: CreateOrder!): Order!
   updateOrder(updateOrderInput: UpdateOrder!): Order!
@@ -117,22 +120,40 @@ type Mutation {
 }
 
 input CreateCompany {
+  """Company name"""
   name: String!
+
+  """Company address"""
   address: String!
+
+  """Company title"""
   title: String!
 
+  """Company currency"""
+  currency: String!
+
   """Company revenue"""
-  revenue: Int!
+  revenue: Float!
 
   """Amount budgted for an employee"""
-  budget: Int!
+  budget: Float!
 }
 
 input UpdateCompany {
-  id: Float!
+  """Company id"""
+  id: Int!
+
+  """Company name"""
   name: String!
+
+  """Company address"""
   address: String!
+
+  """Company title"""
   title: String!
+
+  """Company currency"""
+  currency: String!
 
   """Company revenue"""
   revenue: Int!
@@ -162,6 +183,8 @@ input UpdateEmployee {
 input CreateVoucher {
   """Voucher cost"""
   cost: Float!
+
+  """Voucher currency"""
   currency: String!
 }
 

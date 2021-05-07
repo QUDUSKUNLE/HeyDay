@@ -12,17 +12,16 @@ export class CompaniesResolver {
    * @param  {CompaniesService} privatereadonlycompaniesService
    */
   constructor(private readonly companiesService: CompaniesService) {}
-
   /**
    * @param  {} (
    * @param  {} =>Company
-   * @param  {} createCompany(@Args('createCompany'
+   * @param  {} createCompany(@Args('createCompanyInput'
    * @param  {CreateCompany} createCompany
    * @returns Promise
    */
   @Mutation(() => Company)
   createCompany(
-    @Args('createCompany') createCompany: CreateCompany,
+    @Args('createCompanyInput') createCompany: CreateCompany,
   ): Promise<Company> {
     return this.companiesService.create(createCompany);
   }
@@ -34,7 +33,7 @@ export class CompaniesResolver {
    * @returns Promise
    */
   @Query(() => [Company], { name: 'companies' })
-  createCompanyfindAll(): Promise<Company[]> {
+  findAll(): Promise<Company[]> {
     return this.companiesService.findAll();
   }
 
@@ -57,7 +56,7 @@ export class CompaniesResolver {
    */
   @Mutation(() => Company)
   updateCompany(
-    @Args('updateCompany') updateCompany: UpdateCompany,
+    @Args('updateCompanyInput') updateCompany: UpdateCompany,
   ): Promise<Company | string> {
     return this.companiesService.update(updateCompany.id, updateCompany);
   }

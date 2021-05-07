@@ -1,18 +1,22 @@
 import { InputType, Field, Int } from '@nestjs/graphql';
+import { Currency } from '../../entities/common.entity';
 
 @InputType()
 export class UpdateCompany {
-  @Field()
+  @Field(() => Int, { description: 'Company id' })
   readonly id: number;
 
-  @Field()
+  @Field({ description: 'Company name' })
   readonly name: string;
 
-  @Field()
+  @Field({ description: 'Company address' })
   readonly address: string;
 
-  @Field()
+  @Field({ description: 'Company title' })
   readonly title: string;
+
+  @Field({ description: 'Company currency' })
+  readonly currency: Currency;
 
   @Field(() => Int, { description: 'Company revenue' })
   readonly revenue: number;

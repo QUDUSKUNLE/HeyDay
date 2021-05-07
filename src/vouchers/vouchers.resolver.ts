@@ -22,7 +22,7 @@ export class VouchersResolver {
    */
   @Mutation(() => Voucher)
   createVoucher(
-    @Args('createVoucher') createVoucher: CreateVoucher,
+    @Args('createVoucherInput') createVoucher: CreateVoucher,
   ): Promise<Voucher> {
     return this.vouchersService.create(createVoucher);
   }
@@ -60,7 +60,7 @@ export class VouchersResolver {
    */
   @Mutation(() => Voucher)
   updateVoucher(
-    @Args('updateVoucher') updateVoucher: UpdateVoucher,
+    @Args('updateVoucherInput') updateVoucher: UpdateVoucher,
   ): Promise<Voucher | string> {
     return this.vouchersService.update(updateVoucher.id, updateVoucher);
   }
