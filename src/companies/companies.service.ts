@@ -31,22 +31,22 @@ export class CompaniesService {
   }
 
   /**
-   * @param  {string} id
+   * @param  {number} id
    * @returns Promise
    */
-  async findOne(id: string): Promise<Company | string> {
+  async findOne(id: number): Promise<Company | string> {
     const company = await this.companyRepository.findOne(id);
     if (!company) return 'Company does not exist';
     return company;
   }
 
   /**
-   * @param  {string} id
+   * @param  {number} id
    * @param  {UpdateCompanyInput} updateCompanyInput
    * @returns Promise
    */
   async update(
-    id: string,
+    id: number,
     updateCompany: UpdateCompany,
   ): Promise<Company | string> {
     const company = await this.companyRepository.findOne(id);
@@ -56,10 +56,10 @@ export class CompaniesService {
   }
 
   /**
-   * @param  {string} id
+   * @param  {number} id
    * @returns Promise
    */
-  async remove(id: string): Promise<DeleteResult> {
+  async remove(id: number): Promise<DeleteResult> {
     return await this.companyRepository.delete(id);
   }
 }

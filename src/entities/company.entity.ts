@@ -6,42 +6,42 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 
 @ObjectType()
 @Entity()
 export class Company extends BaseEntity {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field(() => Int, { description: 'Company id' })
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Field()
-  @Column({ length: 500, nullable: false, unique: true })
+  @Field({ description: 'Company name' })
+  @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
   name: string;
 
-  @Field()
-  @Column('text')
+  @Field({ description: 'Company address' })
+  @Column({ type: 'text' })
   address: string;
 
-  @Field()
-  @Column({ length: 500, nullable: false })
+  @Field({ description: 'Company title' })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   title: string;
 
-  @Field()
-  @Column({ nullable: false })
+  @Field(() => Float, { description: 'Company revenue' })
+  @Column({ type: 'float', nullable: false })
   revenue: number;
 
-  @Field()
-  @Column({ nullable: false })
+  @Field(() => Float, { description: 'Company budget' })
+  @Column({ type: 'float', nullable: false })
   budget: number;
 
-  @Field()
-  @Column()
+  @Field({ description: 'Date company joined' })
+  @Column({ type: 'datetime' })
   @CreateDateColumn()
   created_at: Date;
 
-  @Field()
-  @Column()
+  @Field({ description: 'Date company updated' })
+  @Column({ type: 'datetime' })
   @UpdateDateColumn()
   updated_at: Date;
 }

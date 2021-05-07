@@ -19,7 +19,7 @@ export class EmployeesResolver {
   }
 
   @Query(() => Employee, { name: 'employee' })
-  findOne(@Args('id') id: string) {
+  findOne(@Args('id') id: number) {
     return this.employeesService.findOne(id);
   }
 
@@ -29,7 +29,7 @@ export class EmployeesResolver {
   }
 
   @Mutation(() => Employee)
-  removeEmployee(@Args('id') id: string) {
+  removeEmployee(@Args('id') id: number) {
     return this.employeesService.remove(id);
   }
 }

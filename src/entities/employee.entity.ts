@@ -8,36 +8,36 @@ import {
   BaseEntity,
   JoinColumn,
 } from 'typeorm';
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
 import { Company } from './company.entity';
 
 @ObjectType()
 @Entity()
 export class Employee extends BaseEntity {
-  @Field()
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field(() => Int, { description: 'An employee id' })
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Field()
-  @Column({ length: 500, nullable: false })
+  @Field({ description: 'An employee name' })
+  @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
   name: string;
 
-  @Field()
+  @Field(() => Company, { description: 'Company id' })
   @ManyToOne(() => Company, (company) => company.id, { primary: true })
   @JoinColumn({ name: 'company_id' })
   company: Company;
 
-  @Field()
-  @Column()
-  amountSpent: number;
+  @Field(() => Float, { description: 'Amount an employee spent' })
+  @Column({ type: 'float' })
+  amount_spent: number;
 
-  @Field()
-  @Column()
+  @Field({ description: 'Date an employee joined' })
+  @Column({ type: 'datetime' })
   @CreateDateColumn()
   created_at: Date;
 
-  @Field()
-  @Column()
+  @Field({ description: 'Date an employee updated' })
+  @Column({ type: 'datetime' })
   @UpdateDateColumn()
   updated_at: Date;
 }

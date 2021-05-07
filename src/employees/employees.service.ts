@@ -36,22 +36,22 @@ export class EmployeesService {
   }
 
   /**
-   * @param  {string} id
+   * @param  {number} id
    * @returns Promise
    */
-  async findOne(id: string): Promise<Employee | string> {
+  async findOne(id: number): Promise<Employee | string> {
     const employee = await this.employeeRepository.findOneOrFail(id);
     if (!employee.id) return 'Employee does not exist';
     return employee;
   }
 
   /**
-   * @param  {string} id
+   * @param  {number} id
    * @param  {Employees} updateEmployee
    * @returns Promise
    */
   async update(
-    id: string,
+    id: number,
     updateEmployee: UpdateEmployee,
   ): Promise<Employee | string> {
     const employee = await this.employeeRepository.findOne(id);
@@ -61,10 +61,10 @@ export class EmployeesService {
   }
 
   /**
-   * @param  {string} id
+   * @param  {number} id
    * @returns Promise
    */
-  async remove(id: string): Promise<DeleteResult> {
+  async remove(id: number): Promise<DeleteResult> {
     return await this.employeeRepository.delete(id);
   }
 }

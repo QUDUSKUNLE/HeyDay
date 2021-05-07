@@ -3,13 +3,28 @@
 # ------------------------------------------------------
 
 type Company {
-  id: String!
+  """Company id"""
+  id: Int!
+
+  """Company name"""
   name: String!
+
+  """Company address"""
   address: String!
+
+  """Company title"""
   title: String!
+
+  """Company revenue"""
   revenue: Float!
+
+  """Company budget"""
   budget: Float!
+
+  """Date company joined"""
   created_at: DateTime!
+
+  """Date company updated"""
   updated_at: DateTime!
 }
 
@@ -19,28 +34,86 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type Employee {
-  id: String!
+  """An employee id"""
+  id: Int!
+
+  """An employee name"""
   name: String!
+
+  """Company id"""
   company: Company!
-  amountSpent: Float!
+
+  """Amount an employee spent"""
+  amount_spent: Float!
+
+  """Date an employee joined"""
   created_at: DateTime!
+
+  """Date an employee updated"""
+  updated_at: DateTime!
+}
+
+type Voucher {
+  """Voucher id"""
+  id: Int!
+
+  """Voucher cost"""
+  cost: Float!
+
+  """Voucher currency"""
+  currency: String!
+
+  """Date voucher is created"""
+  createdAt: DateTime!
+
+  """Date voucher is updated"""
+  updatedAt: DateTime!
+}
+
+type Order {
+  """Order id"""
+  id: Int!
+
+  """Order date"""
+  order_at: DateTime!
+
+  """Order created"""
+  created_at: DateTime!
+
+  """Employee id"""
+  employee: [Employee!]!
+
+  """Voucher id"""
+  voucher: [Voucher!]!
+
+  """Date order updated"""
   updated_at: DateTime!
 }
 
 type Query {
   companies: [Company!]!
-  company(id: String!): Company!
+  company(id: Float!): Company!
   employees: [Employee!]!
-  employee(id: String!): Employee!
+  employee(id: Float!): Employee!
+  vouchers: [Voucher!]!
+  voucher(id: Int!): Voucher!
+  orders: [Order!]!
+  order(id: Int!): Order!
 }
 
 type Mutation {
   createCompany(createCompany: CreateCompany!): Company!
   updateCompany(updateCompany: UpdateCompany!): Company!
-  removeCompany(id: String!): Company!
+  removeCompany(id: Float!): Company!
   createEmployee(createEmployee: CreateEmployee!): Employee!
   updateEmployee(updateEmployee: UpdateEmployee!): Employee!
-  removeEmployee(id: String!): Employee!
+  removeEmployee(id: Float!): Employee!
+  createVoucher(createVoucherInput: CreateVoucher!): Voucher!
+  updateVoucher(updateVoucherInput: UpdateVoucher!): Voucher!
+  removeVoucher(id: Int!): Voucher!
+  createOrder(createOrderInput: CreateOrder!): Order!
+  updateOrder(updateOrderInput: UpdateOrder!): Order!
+  removeOrder(id: Int!): Order!
 }
 
 input CreateCompany {
@@ -56,7 +129,7 @@ input CreateCompany {
 }
 
 input UpdateCompany {
-  id: String!
+  id: Float!
   name: String!
   address: String!
   title: String!
@@ -73,14 +146,48 @@ input CreateEmployee {
   company: CreateCompany!
 
   """Amount spent on voucher"""
-  amountSpent: Int!
+  amount_spent: Float!
 }
 
 input UpdateEmployee {
-  id: String!
+  """Employee id"""
+  id: Int!
   name: String!
   company: CreateCompany!
 
   """Amount spent on voucher"""
-  amountSpent: Int!
+  amount_spent: Float!
+}
+
+input CreateVoucher {
+  """Voucher cost"""
+  cost: Float!
+  currency: String!
+}
+
+input UpdateVoucher {
+  """Voucher id"""
+  id: Int!
+
+  """Voucher cost"""
+  cost: Float!
+}
+
+input CreateOrder {
+  """Employee id"""
+  employee: CreateEmployee!
+
+  """Voucher id"""
+  voucher: CreateVoucher!
+}
+
+input UpdateOrder {
+  """Order id"""
+  id: Int!
+
+  """Employee id"""
+  employee: CreateEmployee!
+
+  """Voucher id"""
+  voucher: CreateVoucher!
 }

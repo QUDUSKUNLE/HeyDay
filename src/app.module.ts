@@ -11,6 +11,8 @@ import { Employee } from './entities/employee.entity';
 import { EmployeesModule } from './employees/employees.module';
 import { EmployeesResolver } from './employees/employees.resolver';
 import { EmployeesService } from './employees/employees.service';
+import { VouchersModule } from './vouchers/vouchers.module';
+import { OrdersModule } from './orders/orders.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({
@@ -28,6 +30,8 @@ import { EmployeesService } from './employees/employees.service';
     }),
     CompaniesModule,
     EmployeesModule,
+    VouchersModule,
+    OrdersModule,
   ],
   controllers: [],
   providers: [

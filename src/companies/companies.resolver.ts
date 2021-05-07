@@ -20,7 +20,7 @@ export class CompaniesResolver {
   }
 
   @Query(() => Company, { name: 'company' })
-  findOne(@Args('id') id: string): Promise<Company | string> {
+  findOne(@Args('id') id: number): Promise<Company | string> {
     return this.companiesService.findOne(id);
   }
 
@@ -30,7 +30,7 @@ export class CompaniesResolver {
   }
 
   @Mutation(() => Company)
-  removeCompany(@Args('id') id: string): Promise<DeleteResult> {
+  removeCompany(@Args('id') id: number): Promise<DeleteResult> {
     return this.companiesService.remove(id);
   }
 }
