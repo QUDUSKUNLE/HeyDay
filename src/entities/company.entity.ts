@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  OneToOne,
+  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
 import { Currency } from './common.entity';
+import { Employee } from './employee.entity';
 
 @ObjectType()
 @Entity()
@@ -27,6 +30,15 @@ export class Company extends BaseEntity {
   @Field({ description: 'Company title' })
   @Column({ type: 'varchar', length: 100, nullable: false })
   title: string;
+
+  @Field({ description: 'Employee id' })
+  @OneToOne(() => Employee, (employee) => employee.id)
+  @JoinColumn({ name: 'employee_id' })
+  employee: Employee;
+
+  @Field(() => Float, { description: 'Tax rate' })
+  @Column({ type: 'float', nullable: false, default: 30.0 })
+  tax: number;
 
   @Field({ description: 'Company currency' })
   @Column({ type: 'enum', enum: Currency, default: Currency.EUR })

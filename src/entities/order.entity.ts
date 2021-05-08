@@ -21,20 +21,20 @@ export class Order extends BaseEntity {
   @Field({ description: 'Order date' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  orderedAat: Date;
+  orderedAt: Date;
 
   @Field({ description: 'Order created' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
   createdAt: Date;
 
-  @Field(() => Employee, { description: 'Employee id' })
-  @ManyToMany(() => Employee, (employee) => employee.id, { primary: true })
-  employee: Employee;
+  // @Field(() => Employee, { description: 'Employee id' })
+  // @ManyToMany(() => Employee, (employee) => employee.id, { primary: true })
+  // employee: Employee;
 
-  @Field(() => Voucher, { description: 'Voucher id' })
-  @ManyToMany(() => Voucher, (voucher) => voucher.id, { primary: true })
-  voucher: Voucher;
+  // @Field(() => Voucher, { description: 'Voucher id' })
+  // @ManyToMany(() => Voucher, (voucher) => voucher.id, { primary: true })
+  // voucher: Voucher;
 
   @Field({ description: 'Date order updated' })
   @Column({ type: 'datetime' })

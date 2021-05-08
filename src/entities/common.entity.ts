@@ -5,9 +5,9 @@ export enum Currency {
   GBP = 'GBP',
 }
 
-export enum VoucherCategory {
-  SML = 'Small',
-  MDM = 'Medium',
-  LRG = 'Large',
-  XLR = 'Xtra-large',
+export enum Category {
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
+  LARGE = 'LARGE',
+  'XTRA-LARGE' = 'XTRA-LARGE',
 }

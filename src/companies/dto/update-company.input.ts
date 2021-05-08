@@ -13,7 +13,7 @@ export class UpdateCompany {
   readonly address: string;
 
   @Field({ description: 'Company title' })
-  readonly title: string;
+  readonly title?: string;
 
   @Field({ description: 'Company currency' })
   readonly currency: Currency;

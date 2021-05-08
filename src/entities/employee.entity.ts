@@ -4,9 +4,9 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   BaseEntity,
   JoinColumn,
+  OneToOne,
 } from 'typeorm';
 import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
 import { Company } from './company.entity';
@@ -22,8 +22,11 @@ export class Employee extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
   name: string;
 
-  @Field(() => Company, { description: 'Company id' })
-  @ManyToOne(() => Company, (company) => company.id, { primary: true })
+  @Field(() => Company, { description: 'Relations with companies' })
+  @OneToOne(() => Company, (company) => company.id, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'company_id' })
   company: Company;
 

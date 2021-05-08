@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import { ConfigModule } from '@nestjs/config';
 
 import { Company } from './entities/company.entity';
 import { CompaniesModule } from './companies/companies.module';
@@ -33,25 +34,30 @@ import { OrdersService } from './orders/orders.service';
       username: 'postgres',
       password: 'Boluwatife08971',
       database: 'heyday',
-      entities: [Company, Employee, Voucher, Order],
+      entities: [
+        Company,
+        Employee,
+        Voucher,
+        // Order
+      ],
       synchronize: true,
     }),
     CompaniesModule,
     EmployeesModule,
     VouchersModule,
-    OrdersModule,
+    // OrdersModule,
   ],
   controllers: [],
   providers: [
     CompaniesResolver,
     EmployeesResolver,
     VouchersResolver,
-    OrdersResolver,
+    // OrdersResolver,
 
     CompaniesService,
     EmployeesService,
     VouchersService,
-    OrdersService,
+    // OrdersService,
   ],
 })
 export class AppModule {}

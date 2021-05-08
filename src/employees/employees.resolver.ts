@@ -1,10 +1,11 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
-import { DeleteResult } from 'typeorm';
+import { DeepPartial, DeleteResult } from 'typeorm';
 
 import { EmployeesService } from './employees.service';
 import { Employee } from '../entities/employee.entity';
 import { CreateEmployee } from './dto/create-employee.input';
 import { UpdateEmployee } from './dto/update-employee.input';
+
 
 @Resolver(() => Employee)
 export class EmployeesResolver {
@@ -45,7 +46,7 @@ export class EmployeesResolver {
    * @returns Promise
    */
   @Query(() => Employee, { name: 'employee' })
-  findOne(@Args('id') id: number): Promise<Employee | string> {
+  findOne(@Args('id') id: number): Promise<Employee | DeepPartial<Employee>> {
     return this.employeesService.findOne(id);
   }
 
@@ -57,9 +58,9 @@ export class EmployeesResolver {
    * @returns Promise
    */
   @Mutation(() => Employee)
-  updateEmployee(
+  async updateEmployee(
     @Args('updateEmployeeInput') updateEmployee: UpdateEmployee,
-  ): Promise<Employee | string> {
+  ): Promise<Employee> {
     return this.employeesService.update(updateEmployee.id, updateEmployee);
   }
 
