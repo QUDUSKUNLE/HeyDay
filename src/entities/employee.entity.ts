@@ -22,13 +22,16 @@ export class Employee extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
   name: string;
 
-  @Field(() => Company, { description: 'Relations with companies' })
+  @Field(() => Company, {
+    description: 'Relations with companies',
+    nullable: true,
+  })
   @OneToOne(() => Company, (company) => company.id, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'company_id' })
-  company: Company;
+  company?: Company;
 
   @Field(() => Float, { description: 'Amount an employee spent' })
   @Column({ type: 'float' })

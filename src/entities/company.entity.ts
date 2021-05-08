@@ -31,10 +31,10 @@ export class Company extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: false })
   title: string;
 
-  @Field({ description: 'Employee id' })
-  @OneToOne(() => Employee, (employee) => employee.id)
-  @JoinColumn({ name: 'employee_id' })
-  employee: Employee;
+  // @Field({ description: 'Employee id' })
+  // @OneToOne(() => Employee, (employee) => employee.id)
+  // @JoinColumn({ name: 'employee_id' })
+  // employee: Employee;
 
   @Field(() => Float, { description: 'Tax rate' })
   @Column({ type: 'float', nullable: false, default: 30.0 })

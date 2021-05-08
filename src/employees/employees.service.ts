@@ -37,7 +37,7 @@ export class EmployeesService {
    * @returns Promise
    */
   async findAll(): Promise<Employee[]> {
-    return await this.employeeRepository.find();
+    return await this.employeeRepository.find({ relations: ['company'] });
   }
 
   /**

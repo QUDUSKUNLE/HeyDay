@@ -35,8 +35,8 @@ export class EmployeesResolver {
    * @returns Promise
    */
   @Query(() => [Employee], { name: 'employees' })
-  findAll(): Promise<Employee[]> {
-    return this.employeesService.findAll();
+  async findAll(): Promise<Employee[]> {
+    return await this.employeesService.findAll();
   }
 
   /**
