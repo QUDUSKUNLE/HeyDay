@@ -2,43 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Company {
-  """Company id"""
-  id: Int!
-
-  """Company name"""
-  name: String!
-
-  """Company address"""
-  address: String!
-
-  """Company title"""
-  title: String!
-
-  """Tax rate"""
-  tax: Float!
-
-  """Company currency"""
-  currency: String!
-
-  """Company revenue"""
-  revenue: Float!
-
-  """Company budget"""
-  budget: Float!
-
-  """Date company joined"""
-  createdAt: DateTime!
-
-  """Date company is updated"""
-  updatedAt: DateTime!
-}
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type Employee {
   """An employee id"""
   id: Int!
@@ -56,6 +19,46 @@ type Employee {
   createdAt: DateTime!
 
   """Date an employee updated"""
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Company {
+  """Company id"""
+  id: Int!
+
+  """Company name"""
+  name: String!
+
+  """Company address"""
+  address: String!
+
+  """Company title"""
+  title: String!
+
+  """Employee id"""
+  employees: [Employee!]
+
+  """Tax rate"""
+  tax: Float!
+
+  """Company currency"""
+  currency: String!
+
+  """Company revenue"""
+  revenue: Float!
+
+  """Company budget"""
+  budget: Float!
+
+  """Date company joined"""
+  createdAt: DateTime!
+
+  """Date company is updated"""
   updatedAt: DateTime!
 }
 

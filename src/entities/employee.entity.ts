@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   BaseEntity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
 } from 'typeorm';
 import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
 import { Company } from './company.entity';
@@ -26,10 +26,7 @@ export class Employee extends BaseEntity {
     description: 'Relations with companies',
     nullable: true,
   })
-  @OneToOne(() => Company, (company) => company.id, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
+  @ManyToOne(() => Company, (company) => company.id)
   @JoinColumn({ name: 'company_id' })
   company?: Company;
 

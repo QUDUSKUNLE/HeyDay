@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  OneToMany,
   OneToOne,
   JoinColumn,
 } from 'typeorm';
@@ -31,10 +32,10 @@ export class Company extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: false })
   title: string;
 
-  // @Field({ description: 'Employee id' })
-  // @OneToOne(() => Employee, (employee) => employee.id)
-  // @JoinColumn({ name: 'employee_id' })
-  // employee: Employee;
+  @Field(() => [Employee], { description: 'Employee id', nullable: true })
+  @OneToMany(() => Employee, (employee) => employee.company)
+  @JoinColumn({ name: 'employee_id' })
+  employees?: Employee[];
 
   @Field(() => Float, { description: 'Tax rate' })
   @Column({ type: 'float', nullable: false, default: 30.0 })

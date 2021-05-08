@@ -6,7 +6,7 @@ export class CreateEmployee {
   readonly name: string;
 
   @Field(() => Int, { description: 'Company id' })
-  company: number;
+  company: any;
 
   @Field(() => Float, { description: 'Amount spent on voucher' })
   readonly amountSpent: number;

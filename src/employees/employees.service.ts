@@ -24,9 +24,9 @@ export class EmployeesService {
    * @param  {CreateEmployee} createEmployee
    */
   async create(createEmployee: CreateEmployee) {
-    const company: DeepPartial<Company> = await this.companyRepository.findOne(
-      createEmployee.company,
-    );
+    const company:
+      | DeepPartial<Company>
+      | number = await this.companyRepository.findOne(createEmployee.company);
     return await this.employeeRepository.save({
       ...createEmployee,
       company,
