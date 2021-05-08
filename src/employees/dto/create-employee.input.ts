@@ -10,5 +10,5 @@ export class CreateEmployee {
   readonly company: CreateCompany;
 
   @Field(() => Float, { description: 'Amount spent on voucher' })
-  readonly amount_spent: number;
+  readonly amountSpent: number;
 }

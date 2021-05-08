@@ -25,10 +25,10 @@ type Company {
   budget: Float!
 
   """Date company joined"""
-  created_at: DateTime!
+  createdAt: DateTime!
 
   """Date company is updated"""
-  updated_at: DateTime!
+  updatedAt: DateTime!
 }
 
 """
@@ -47,13 +47,13 @@ type Employee {
   company: Company!
 
   """Amount an employee spent"""
-  amount_spent: Float!
+  amountSpent: Float!
 
   """Date an employee joined"""
-  created_at: DateTime!
+  createdAt: DateTime!
 
   """Date an employee updated"""
-  updated_at: DateTime!
+  updatedAt: DateTime!
 }
 
 type Voucher {
@@ -65,6 +65,9 @@ type Voucher {
 
   """Voucher currency"""
   currency: String!
+
+  """Voucher category"""
+  voucher: String!
 
   """Date voucher is created"""
   createdAt: DateTime!
@@ -78,10 +81,10 @@ type Order {
   id: Int!
 
   """Order date"""
-  order_at: DateTime!
+  orderedAat: DateTime!
 
   """Order created"""
-  created_at: DateTime!
+  createdAt: DateTime!
 
   """Employee id"""
   employee: Employee!
@@ -90,7 +93,7 @@ type Order {
   voucher: Voucher!
 
   """Date order updated"""
-  updated_at: DateTime!
+  updatedAt: DateTime!
 }
 
 type Query {
@@ -167,7 +170,7 @@ input CreateEmployee {
   company: CreateCompany!
 
   """Amount spent on voucher"""
-  amount_spent: Float!
+  amountSpent: Float!
 }
 
 input UpdateEmployee {
@@ -177,7 +180,7 @@ input UpdateEmployee {
   company: CreateCompany!
 
   """Amount spent on voucher"""
-  amount_spent: Float!
+  amountSpent: Float!
 }
 
 input CreateVoucher {
@@ -186,6 +189,9 @@ input CreateVoucher {
 
   """Voucher currency"""
   currency: String!
+
+  """Voucher category"""
+  voucher: String!
 }
 
 input UpdateVoucher {
@@ -194,6 +200,12 @@ input UpdateVoucher {
 
   """Voucher cost"""
   cost: Float!
+
+  """Voucher currency"""
+  currency: String!
+
+  """Voucher category"""
+  voucher: String!
 }
 
 input CreateOrder {

@@ -7,7 +7,7 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from 'typeorm';
-import { Currency } from './common.entity';
+import { Currency, VoucherCategory } from './common.entity';
 
 @ObjectType()
 @Entity()
@@ -23,6 +23,10 @@ export class Voucher extends BaseEntity {
   @Field({ description: 'Voucher currency' })
   @Column({ type: 'enum', enum: Currency, default: Currency.EUR })
   currency: Currency;
+
+  @Field({ description: 'Voucher category' })
+  @Column({ type: 'enum', enum: VoucherCategory, default: VoucherCategory.SML })
+  voucher: VoucherCategory;
 
   @Field({ description: 'Date voucher is created' })
   @Column({ type: 'datetime' })

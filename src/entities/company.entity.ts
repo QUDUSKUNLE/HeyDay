@@ -43,10 +43,10 @@ export class Company extends BaseEntity {
   @Field({ description: 'Date company joined' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @Field({ description: 'Date company is updated' })
   @Column({ type: 'datetime' })
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

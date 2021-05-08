@@ -29,15 +29,15 @@ export class Employee extends BaseEntity {
 
   @Field(() => Float, { description: 'Amount an employee spent' })
   @Column({ type: 'float' })
-  amount_spent: number;
+  amountSpent: number;
 
   @Field({ description: 'Date an employee joined' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @Field({ description: 'Date an employee updated' })
   @Column({ type: 'datetime' })
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

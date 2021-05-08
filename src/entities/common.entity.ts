@@ -4,3 +4,10 @@ export enum Currency {
   USD = 'USD',
   GBP = 'GBP',
 }
+
+export enum VoucherCategory {
+  SML = 'Small',
+  MDM = 'Medium',
+  LRG = 'Large',
+  XLR = 'Xtra-large',
+}

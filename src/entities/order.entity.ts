@@ -21,12 +21,12 @@ export class Order extends BaseEntity {
   @Field({ description: 'Order date' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  order_at: Date;
+  orderedAat: Date;
 
   @Field({ description: 'Order created' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @Field(() => Employee, { description: 'Employee id' })
   @ManyToMany(() => Employee, (employee) => employee.id, { primary: true })
@@ -39,5 +39,5 @@ export class Order extends BaseEntity {
   @Field({ description: 'Date order updated' })
   @Column({ type: 'datetime' })
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }
