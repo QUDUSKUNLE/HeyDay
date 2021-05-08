@@ -33,7 +33,7 @@ export class Company extends BaseEntity {
   title: string;
 
   @Field(() => [Employee], { description: 'Employee id', nullable: true })
-  @OneToMany(() => Employee, (employee) => employee.company)
+  @OneToMany(() => Employee, (employee) => employee.company, { cascade: true })
   @JoinColumn({ name: 'employee_id' })
   employees?: Employee[];
 

@@ -45,7 +45,9 @@ export class EmployeesService {
    * @returns Promise
    */
   async findOne(id: number): Promise<Employee | DeepPartial<Employee>> {
-    return await this.employeeRepository.findOneOrFail(id);
+    return await this.employeeRepository.findOneOrFail(id, {
+      relations: ['company'],
+    });
   }
 
   /**
