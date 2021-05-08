@@ -6,7 +6,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  ManyToOne,
   ManyToMany,
+  JoinColumn,
+  JoinTable,
 } from 'typeorm';
 import { Employee } from './employee.entity';
 import { Voucher } from './voucher.entity';
@@ -28,13 +31,18 @@ export class Order extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  // @Field(() => Employee, { description: 'Employee id' })
-  // @ManyToMany(() => Employee, (employee) => employee.id, { primary: true })
-  // employee: Employee;
+  @Field(() => Employee, { description: 'Employee id' })
+  @ManyToOne(() => Employee, (employee) => employee.id, { primary: true })
+  @JoinColumn({ name: 'employee_id' })
+  employee: Employee;
 
-  // @Field(() => Voucher, { description: 'Voucher id' })
-  // @ManyToMany(() => Voucher, (voucher) => voucher.id, { primary: true })
-  // voucher: Voucher;
+  @Field(() => [Voucher], { description: 'Voucher id' })
+  @ManyToMany(() => Voucher, (voucher) => voucher.orders)
+  @JoinTable({
+    name: 'order_voucher',
+  })
+  @JoinColumn({ referencedColumnName: 'id' })
+  vouchers: Voucher[];
 
   @Field({ description: 'Date order updated' })
   @Column({ type: 'datetime' })

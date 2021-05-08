@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   BaseEntity,
   OneToMany,
-  OneToOne,
   JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';

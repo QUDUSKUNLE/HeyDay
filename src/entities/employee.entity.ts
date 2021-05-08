@@ -7,9 +7,11 @@ import {
   BaseEntity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
 import { Company } from './company.entity';
+import { Order } from './order.entity';
 
 @ObjectType()
 @Entity()
@@ -29,6 +31,14 @@ export class Employee extends BaseEntity {
   @ManyToOne(() => Company, (company) => company.id)
   @JoinColumn({ name: 'company_id' })
   company?: Company;
+
+  @Field(() => [Order], {
+    description: 'Relations with orders',
+    nullable: true,
+  })
+  @OneToMany(() => Order, (order) => order.employee, { cascade: true })
+  @JoinColumn({ name: 'order_id' })
+  orders?: Order[];
 
   @Field(() => Float, { description: 'Amount an employee spent' })
   @Column({ type: 'float' })

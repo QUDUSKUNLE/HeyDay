@@ -45,9 +45,7 @@ export class VouchersResolver {
    * @returns Promise
    */
   @Query(() => Voucher, { name: 'voucher' })
-  findOne(
-    @Args('id', { type: () => Int }) id: number,
-  ): Promise<Voucher | string> {
+  findOne(@Args('id', { type: () => Int }) id: number): Promise<Voucher> {
     return this.vouchersService.findOne(id);
   }
 
@@ -61,7 +59,7 @@ export class VouchersResolver {
   @Mutation(() => Voucher)
   updateVoucher(
     @Args('updateVoucherInput') updateVoucher: UpdateVoucher,
-  ): Promise<Voucher | string> {
+  ): Promise<Voucher> {
     return this.vouchersService.update(updateVoucher.id, updateVoucher);
   }
 

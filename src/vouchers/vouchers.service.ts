@@ -5,6 +5,7 @@ import { Repository, DeleteResult } from 'typeorm';
 import { CreateVoucher } from './dto/create-voucher.input';
 import { UpdateVoucher } from './dto/update-voucher.input';
 import { Voucher } from '../entities/voucher.entity';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
 export class VouchersService {
@@ -29,17 +30,17 @@ export class VouchersService {
    * @returns Promise
    */
   async findAll(): Promise<Voucher[]> {
-    return await this.voucherRepository.find();
+    return await this.voucherRepository.find({ relations: ['orders'] });
   }
 
   /**
    * @param  {number} id
    * @returns Promise
    */
-  async findOne(id: number): Promise<Voucher | string> {
-    const voucher = await this.voucherRepository.findOne(id);
-    if (!voucher) return 'Voucher does not exit';
-    return voucher;
+  async findOne(id: number): Promise<Voucher> {
+    return await this.voucherRepository.findOneOrFail(id, {
+      relations: ['orders'],
+    });
   }
 
   /**
@@ -47,14 +48,16 @@ export class VouchersService {
    * @param  {UpdateVoucher} updateVoucher
    * @returns Promise
    */
-  async update(
-    id: number,
-    updateVoucher: UpdateVoucher,
-  ): Promise<Voucher | string> {
-    const voucher = await this.findOne(id);
-    if (voucher && typeof voucher === 'string') return 'Voucher does not exist';
-    await this.voucherRepository.update(id, updateVoucher);
-    return await this.voucherRepository.findOne(id);
+  async update(id: number, updateVoucher: UpdateVoucher): Promise<Voucher> {
+    const voucher:
+      | UpdateVoucher
+      | QueryDeepPartialEntity<Voucher> = await this.voucherRepository.findOne(
+      id,
+    );
+    await this.voucherRepository.update(id, { ...voucher, ...updateVoucher });
+    return await this.voucherRepository.findOneOrFail(id, {
+      relations: ['orders'],
+    });
   }
 
   /**
