@@ -1,5 +1,5 @@
 import { InputType, Field, Int, Float } from '@nestjs/graphql';
-import { Currency, VoucherCategory } from '../../entities/common.entity';
+import { Currency, Category } from '../../entities/common.entity';
 
 @InputType()
 export class UpdateVoucher {
@@ -9,9 +9,12 @@ export class UpdateVoucher {
   @Field(() => Float, { description: 'Voucher cost' })
   readonly cost: number;
 
+  @Field({ description: 'Voucher name' })
+  readonly name: string;
+
   @Field({ description: 'Voucher currency' })
   readonly currency: Currency;
 
   @Field({ description: 'Voucher category' })
-  readonly voucher: VoucherCategory;
+  readonly category: Category;
 }
