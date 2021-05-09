@@ -33,7 +33,7 @@ export class Order extends BaseEntity {
 
   @Field(() => Employee, { description: 'Employee id' })
   @ManyToOne(() => Employee, (employee) => employee.id, { primary: true })
-  @JoinColumn({ name: 'employee_id' })
+  @JoinColumn()
   employee: Employee;
 
   @Field(() => [Voucher], { description: 'Voucher id' })
