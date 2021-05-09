@@ -34,7 +34,7 @@ export class EmployeesResolver {
    * @param  {'employees'}} {name
    * @returns Promise
    */
-  @Query(() => [Employee], { name: 'employees' })
+  @Query(() => [Employee], { name: 'employees', nullable: true })
   async findAll(): Promise<Employee[]> {
     return await this.employeesService.findAll();
   }
@@ -45,7 +45,7 @@ export class EmployeesResolver {
    * @param  {'employee'}} {name
    * @returns Promise
    */
-  @Query(() => Employee, { name: 'employee' })
+  @Query(() => Employee, { name: 'employee', nullable: true })
   findOne(@Args('id') id: number): Promise<Employee | DeepPartial<Employee>> {
     return this.employeesService.findOne(id);
   }

@@ -27,7 +27,7 @@ export class OrdersService {
    * @param  {CreateOrder} createOrder
    * @returns Promise
    */
-  async create(createOrder: CreateOrder): Promise<Order[]> {
+  async create(createOrder: CreateOrder): Promise<Order> {
     const employee:
       | DeepPartial<Employee>
       | number = await this.employeeRepository.findOne(createOrder.employee);
@@ -49,7 +49,9 @@ export class OrdersService {
     newOrder.updatedAt = updatedAt;
     voucher.orders.push(newOrder);
     await this.voucherRepository.save(voucher);
-    return await this.orderRepository.find({ relations: ['vouchers'] });
+    return await this.orderRepository.findOne(order.id, {
+      relations: ['vouchers'],
+    });
   }
 
   /**

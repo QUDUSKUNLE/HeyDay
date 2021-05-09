@@ -35,10 +35,8 @@ export class CompaniesService {
    * @param  {number} id
    * @returns Promise
    */
-  async findOne(id: number): Promise<Company | string> {
-    const company = await this.companyRepository.findOne(id);
-    if (!company) return 'Company does not exist';
-    return company;
+  async findOne(id: number): Promise<Company> {
+    return await this.companyRepository.findOne(id);
   }
 
   /**

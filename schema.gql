@@ -112,14 +112,14 @@ type Company {
 }
 
 type Query {
-  companies: [Company!]!
-  company(id: Float!): Company!
-  employees: [Employee!]!
-  employee(id: Float!): Employee!
+  companies: [Company!]
+  company(id: Float!): Company
+  employees: [Employee!]
+  employee(id: Float!): Employee
   vouchers: [Voucher!]!
   voucher(id: Int!): Voucher!
-  orders: [Order!]!
-  order(id: Int!): Order!
+  orders: [Order!]
+  order(id: Int!): Order
 }
 
 type Mutation {

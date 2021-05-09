@@ -7,20 +7,20 @@ export class UpdateCompany {
   readonly id: number;
 
   @Field({ description: 'Company name' })
-  readonly name: string;
+  name?: string;
 
   @Field({ description: 'Company address' })
-  readonly address: string;
+  address?: string;
 
   @Field({ description: 'Company title' })
-  readonly title?: string;
+  title?: string;
 
   @Field({ description: 'Company currency' })
-  readonly currency: Currency;
+  currency?: Currency;
 
   @Field(() => Int, { description: 'Company revenue' })
-  readonly revenue: number;
+  revenue?: number;
 
   @Field(() => Int, { description: 'Amount budgted for an employee' })
-  readonly budget: number;
+  budget?: number;
 }

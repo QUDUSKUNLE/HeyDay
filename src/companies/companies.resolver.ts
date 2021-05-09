@@ -32,7 +32,7 @@ export class CompaniesResolver {
    * @param  {'companies'}} {name
    * @returns Promise
    */
-  @Query(() => [Company], { name: 'companies' })
+  @Query(() => [Company], { name: 'companies', nullable: true })
   findAll(): Promise<Company[]> {
     return this.companiesService.findAll();
   }
@@ -43,8 +43,8 @@ export class CompaniesResolver {
    * @param  {'company'}} {name
    * @returns Promise
    */
-  @Query(() => Company, { name: 'company' })
-  findOne(@Args('id') id: number): Promise<Company | string> {
+  @Query(() => Company, { name: 'company', nullable: true })
+  findOne(@Args('id') id: number): Promise<Company> {
     return this.companiesService.findOne(id);
   }
   /**

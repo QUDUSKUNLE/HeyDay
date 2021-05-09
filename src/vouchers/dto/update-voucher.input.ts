@@ -7,14 +7,14 @@ export class UpdateVoucher {
   readonly id: number;
 
   @Field(() => Float, { description: 'Voucher cost' })
-  cost: number;
+  cost?: number;
 
   @Field({ description: 'Voucher name' })
-  name: string;
+  name?: string;
 
   @Field({ description: 'Voucher currency' })
-  currency: Currency;
+  currency?: Currency;
 
   @Field({ description: 'Voucher category' })
-  category: Category;
+  category?: Category;
 }

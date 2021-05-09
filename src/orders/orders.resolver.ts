@@ -23,7 +23,7 @@ export class OrdersResolver {
   @Mutation(() => Order)
   createOrder(
     @Args('createOrderInput') createOrder: CreateOrder,
-  ): Promise<Order[]> {
+  ): Promise<Order> {
     return this.ordersService.create(createOrder);
   }
 
@@ -33,7 +33,7 @@ export class OrdersResolver {
    * @param  {'orders'}} {name
    * @returns Promise
    */
-  @Query(() => [Order], { name: 'orders' })
+  @Query(() => [Order], { name: 'orders', nullable: true })
   findAll(): Promise<Order[] | DeepPartial<Order>[]> {
     return this.ordersService.findAll();
   }
@@ -44,7 +44,7 @@ export class OrdersResolver {
    * @param  {'order'}} {name
    * @returns Promise
    */
-  @Query(() => Order, { name: 'order' })
+  @Query(() => Order, { name: 'order', nullable: true })
   findOne(
     @Args('id', { type: () => Int }) id: number,
   ): Promise<Order | DeepPartial<Order>> {
