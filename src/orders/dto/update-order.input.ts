@@ -9,5 +9,5 @@ export class UpdateOrder {
   employee: number;
 
   @Field(() => Int, { description: 'Voucher id' })
-  voucher: number;
+  vouchers: number;
 }

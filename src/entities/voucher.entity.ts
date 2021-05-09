@@ -16,22 +16,22 @@ import { Order } from './order.entity';
 export class Voucher extends BaseEntity {
   @Field(() => Int, { description: 'Voucher id' })
   @PrimaryGeneratedColumn()
-  id?: number;
+  id: number;
 
   @Field(() => Float, { description: 'Voucher cost' })
   @Column({ type: 'float', nullable: false })
-  cost?: number;
+  cost: number;
 
   @Field({ description: 'Voucher category' })
   @Column({ type: 'enum', enum: Category, default: Category.SMALL })
-  category?: Category;
+  category: Category;
 
   @Field({ description: 'Voucher name' })
   @Column({ type: 'varchar', nullable: false, unique: true })
-  name?: string;
+  name: string;
 
   @Field(() => [Order], { description: 'Vouchers ordered' })
-  @ManyToMany(() => Order, (order) => order.vouchers)
+  @ManyToMany(() => Order, (order) => order.vouchers, { eager: false })
   orders: Order[];
 
   @Field({ description: 'Voucher currency' })

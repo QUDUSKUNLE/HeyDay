@@ -23,7 +23,7 @@ export class OrdersResolver {
   @Mutation(() => Order)
   createOrder(
     @Args('createOrderInput') createOrder: CreateOrder,
-  ): Promise<Order> {
+  ): Promise<Order[]> {
     return this.ordersService.create(createOrder);
   }
 

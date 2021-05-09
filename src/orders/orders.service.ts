@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult, DeepPartial, getRepository } from 'typeorm';
+import { Repository, DeleteResult, DeepPartial } from 'typeorm';
 
 import { Order } from '../entities/order.entity';
 import { Employee } from '../entities/employee.entity';
@@ -27,26 +27,30 @@ export class OrdersService {
    * @param  {CreateOrder} createOrder
    * @returns Promise
    */
-  async create(createOrder: CreateOrder): Promise<Order> {
+  async create(createOrder: CreateOrder): Promise<Order[]> {
     const employee:
       | DeepPartial<Employee>
       | number = await this.employeeRepository.findOne(createOrder.employee);
     const voucher:
       | DeepPartial<Voucher>
-      | number = await this.voucherRepository.findOne(createOrder.voucher, {
+      | number = await this.voucherRepository.findOne(createOrder.vouchers, {
       relations: ['orders'],
     });
-    // await this.
-    const order: DeepPartial<Order> = await this.orderRepository.save({
-      ...createOrder,
-      employee,
-      voucher,
-    });
 
-    // voucher.orders = [{ id, orderedAt, createdAt, updatedAt }];
+    const order = await this.orderRepository.save({
+      employee,
+      vouchers: [voucher],
+    });
+    const newOrder = new Order();
+    const { id, createdAt, orderedAt, updatedAt } = order;
+    newOrder.id = id;
+    newOrder.createdAt = createdAt;
+    newOrder.orderedAt = orderedAt;
+    newOrder.updatedAt = updatedAt;
+    voucher.orders.push(newOrder);
     await this.voucherRepository.save(voucher);
-    return await this.orderRepository.findOneOrFail(order.id, {
-      relations: ['vouchers', 'employee'],
+    return await this.orderRepository.find({
+      relations: ['employee', 'vouchers'],
     });
   }
 
@@ -81,11 +85,11 @@ export class OrdersService {
     const employee = await this.employeeRepository.findOne(
       updateOrder.employee,
     );
-    const voucher = await this.voucherRepository.findOne(updateOrder.voucher);
+    const vouchers = await this.voucherRepository.findOne(updateOrder.vouchers);
     await this.orderRepository.update(id, {
       ...updateOrder,
       employee,
-      voucher,
+      vouchers,
     } as any);
     return await this.orderRepository.findOne(id);
   }

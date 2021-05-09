@@ -17,7 +17,7 @@ import { Voucher } from './voucher.entity';
 @ObjectType()
 @Entity()
 export class Order extends BaseEntity {
-  @Field(() => Int, { description: 'Order id' })
+  @Field(() => Int, { description: 'Order id', nullable: true })
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,17 +31,17 @@ export class Order extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Field(() => Employee, { description: 'Employee id' })
+  @Field(() => Employee, { description: 'Employee id', nullable: true })
   @ManyToOne(() => Employee, (employee) => employee.id, { primary: true })
   @JoinColumn({ name: 'employee_id' })
   employee: Employee;
 
-  @Field(() => [Voucher], { description: 'Voucher id' })
-  @ManyToMany(() => Voucher, (voucher) => voucher.orders)
-  @JoinTable({
-    name: 'order_voucher',
+  @Field(() => Voucher, { description: 'Voucher id', nullable: true })
+  @ManyToMany(() => Voucher, (voucher) => voucher.orders, {
+    eager: false,
+    cascade: true,
   })
-  @JoinColumn({ referencedColumnName: 'id' })
+  @JoinTable()
   vouchers: Voucher[];
 
   @Field({ description: 'Date order updated' })

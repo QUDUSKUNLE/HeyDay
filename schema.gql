@@ -35,7 +35,7 @@ scalar DateTime
 
 type Order {
   """Order id"""
-  id: Int!
+  id: Int
 
   """Order date"""
   orderedAt: DateTime!
@@ -44,10 +44,10 @@ type Order {
   createdAt: DateTime!
 
   """Employee id"""
-  employee: Employee!
+  employee: Employee
 
   """Voucher id"""
-  vouchers: [Voucher!]!
+  vouchers: Voucher
 
   """Date order updated"""
   updatedAt: DateTime!
@@ -241,7 +241,7 @@ input CreateOrder {
   employee: Int!
 
   """Voucher id"""
-  voucher: Int!
+  vouchers: Int!
 }
 
 input UpdateOrder {
@@ -252,5 +252,5 @@ input UpdateOrder {
   employee: Int!
 
   """Voucher id"""
-  voucher: Int!
+  vouchers: Int!
 }
