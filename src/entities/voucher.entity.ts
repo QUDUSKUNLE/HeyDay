@@ -30,13 +30,13 @@ export class Voucher extends BaseEntity {
   @Column({ type: 'varchar', nullable: false, unique: true })
   name: string;
 
-  @Field(() => [Order], { description: 'Vouchers ordered' })
-  @ManyToMany(() => Order, (order) => order.vouchers, { eager: false })
+  @Field(() => Order, { description: 'Vouchers ordered' })
+  @ManyToMany(() => Order, (order) => order.vouchers, { cascade: true })
   orders: Order[];
 
   @Field({ description: 'Voucher currency' })
   @Column({ type: 'enum', enum: Currency, default: Currency.EUR })
-  currency?: Currency;
+  currency: Currency;
 
   @Field({ description: 'Date voucher is created' })
   @Column({ type: 'datetime' })

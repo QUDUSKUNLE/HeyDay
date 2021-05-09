@@ -36,11 +36,8 @@ export class Order extends BaseEntity {
   @JoinColumn({ name: 'employee_id' })
   employee: Employee;
 
-  @Field(() => Voucher, { description: 'Voucher id', nullable: true })
-  @ManyToMany(() => Voucher, (voucher) => voucher.orders, {
-    eager: false,
-    cascade: true,
-  })
+  @Field(() => [Voucher], { description: 'Voucher id' })
+  @ManyToMany(() => Voucher, (voucher) => voucher.orders)
   @JoinTable()
   vouchers: Voucher[];
 

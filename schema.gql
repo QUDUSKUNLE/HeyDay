@@ -16,7 +16,7 @@ type Voucher {
   name: String!
 
   """Vouchers ordered"""
-  orders: [Order!]!
+  orders: Order!
 
   """Voucher currency"""
   currency: String!
@@ -47,7 +47,7 @@ type Order {
   employee: Employee
 
   """Voucher id"""
-  vouchers: Voucher
+  vouchers: [Voucher!]!
 
   """Date order updated"""
   updatedAt: DateTime!

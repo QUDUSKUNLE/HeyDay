@@ -37,6 +37,7 @@ export class OrdersService {
       relations: ['orders'],
     });
 
+    console.log(voucher, 'old voucher');
     const order = await this.orderRepository.save({
       employee,
       vouchers: [voucher],
@@ -48,10 +49,9 @@ export class OrdersService {
     newOrder.orderedAt = orderedAt;
     newOrder.updatedAt = updatedAt;
     voucher.orders.push(newOrder);
+    console.log(voucher, 'New voucher');
     await this.voucherRepository.save(voucher);
-    return await this.orderRepository.find({
-      relations: ['employee', 'vouchers'],
-    });
+    return await this.orderRepository.find({ relations: ['vouchers'] });
   }
 
   /**

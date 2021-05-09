@@ -26,18 +26,9 @@ Heyday app should be running on the specifiied `PORT` in `.env`.
 $ Heyday application is running on port `http://[::1]:{PORT}`
 ```
 
-Access to GraphQL playground
+Access to GraphQL playground and available endpoints via the schema tab on the right side of GrpahQL playground.
 ```sh
 $ localhost:{PORT}/graphql
-```
-
-Alternatively, one can run the application in docker container, build the docker image by running this
-```sh
-$ npm run build-heyday-docker
-```
-or
-```sh
-$ npm run start-heyday-docker
 ```
 
 Improvements:
