@@ -6,6 +6,6 @@ import { AppModule } from './app.module';
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
 
-  await app.listen(3000);
-  console.log(`Application is running on port ${await app.getUrl()}`);
+  await app.listen(process.env.HEYDAY_GRAPGQL_PORT);
+  console.log(`Heyday application is running on port ${await app.getUrl()}`);
 })();
