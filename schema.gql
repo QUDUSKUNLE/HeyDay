@@ -15,7 +15,7 @@ type Voucher {
   """Voucher name"""
   name: String!
 
-  """Vouchers ordered"""
+  """List of orders"""
   orders: Order!
 
   """Voucher currency"""
@@ -46,7 +46,7 @@ type Order {
   """Employee id"""
   employee: Employee!
 
-  """Voucher id"""
+  """List of vouchers"""
   vouchers: [Voucher!]!
 
   """Date order updated"""
@@ -61,13 +61,13 @@ type Employee {
   name: String!
 
   """Relations with companies"""
-  company: Company
+  company: Company!
 
   """Relations with orders"""
   orders: [Order!]
 
   """Amount an employee spent"""
-  amountSpent: Float!
+  amountSpent: Float
 
   """Date an employee joined"""
   createdAt: DateTime!

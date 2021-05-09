@@ -33,10 +33,10 @@ export class Order extends BaseEntity {
 
   @Field(() => Employee, { description: 'Employee id' })
   @ManyToOne(() => Employee, (employee) => employee.id, { primary: true })
-  @JoinColumn()
+  @JoinColumn({ name: 'employee_id' })
   employee: Employee;
 
-  @Field(() => [Voucher], { description: 'Voucher id' })
+  @Field(() => [Voucher], { description: 'List of vouchers' })
   @ManyToMany(() => Voucher, (voucher) => voucher.orders)
   @JoinTable()
   vouchers: Voucher[];

@@ -27,10 +27,10 @@ export class Voucher extends BaseEntity {
   category: Category;
 
   @Field({ description: 'Voucher name' })
-  @Column({ type: 'varchar', nullable: false, unique: true })
+  @Column({ type: 'varchar', nullable: false })
   name: string;
 
-  @Field(() => Order, { description: 'Vouchers ordered' })
+  @Field(() => Order, { description: 'List of orders' })
   @ManyToMany(() => Order, (order) => order.vouchers, { cascade: true })
   orders: Order[];
 

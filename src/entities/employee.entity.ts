@@ -21,16 +21,15 @@ export class Employee extends BaseEntity {
   id: number;
 
   @Field({ description: 'An employee name' })
-  @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   name: string;
 
   @Field(() => Company, {
     description: 'Relations with companies',
-    nullable: true,
   })
   @ManyToOne(() => Company, (company) => company.id)
   @JoinColumn({ name: 'company_id' })
-  company?: Company;
+  company: Company;
 
   @Field(() => [Order], {
     description: 'Relations with orders',
@@ -40,9 +39,12 @@ export class Employee extends BaseEntity {
   @JoinColumn({ name: 'order_id' })
   orders?: Order[];
 
-  @Field(() => Float, { description: 'Amount an employee spent' })
-  @Column({ type: 'float' })
-  amountSpent: number;
+  @Field(() => Float, {
+    description: 'Amount an employee spent',
+    nullable: true,
+  })
+  @Column({ type: 'float', nullable: true })
+  amountSpent?: number;
 
   @Field({ description: 'Date an employee joined' })
   @Column({ type: 'datetime' })

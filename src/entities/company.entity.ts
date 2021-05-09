@@ -20,11 +20,11 @@ export class Company extends BaseEntity {
   id: number;
 
   @Field({ description: 'Company name' })
-  @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
+  @Column({ type: 'varchar', length: 100, nullable: false })
   name: string;
 
   @Field({ description: 'Company address' })
-  @Column({ type: 'text' })
+  @Column({ type: 'text', nullable: false })
   address: string;
 
   @Field({ description: 'Company title' })
@@ -33,7 +33,7 @@ export class Company extends BaseEntity {
 
   @Field(() => [Employee], { description: 'Employee id', nullable: true })
   @OneToMany(() => Employee, (employee) => employee.company, { cascade: true })
-  @JoinColumn({ name: 'employee_id' })
+  @JoinColumn()
   employees?: Employee[];
 
   @Field(() => Float, { description: 'Tax rate' })
