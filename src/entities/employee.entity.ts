@@ -4,12 +4,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   BaseEntity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType, Field, Float, Int } from '@nestjs/graphql';
 import { Company } from './company.entity';
+import { Order } from './order.entity';
 
 @ObjectType()
 @Entity()
@@ -22,22 +24,33 @@ export class Employee extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: false, unique: true })
   name: string;
 
-  @Field(() => Company, { description: 'Company id' })
-  @ManyToOne(() => Company, (company) => company.id, { primary: true })
+  @Field(() => Company, {
+    description: 'Relations with companies',
+    nullable: true,
+  })
+  @ManyToOne(() => Company, (company) => company.id)
   @JoinColumn({ name: 'company_id' })
-  company: Company;
+  company?: Company;
+
+  @Field(() => [Order], {
+    description: 'Relations with orders',
+    nullable: true,
+  })
+  @OneToMany(() => Order, (order) => order.employee, { cascade: true })
+  @JoinColumn({ name: 'order_id' })
+  orders?: Order[];
 
   @Field(() => Float, { description: 'Amount an employee spent' })
   @Column({ type: 'float' })
-  amount_spent: number;
+  amountSpent: number;
 
   @Field({ description: 'Date an employee joined' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
   @Field({ description: 'Date an employee updated' })
   @Column({ type: 'datetime' })
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

@@ -5,8 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  OneToMany,
+  JoinColumn,
 } from 'typeorm';
 import { ObjectType, Field, Int, Float } from '@nestjs/graphql';
+import { Currency } from './common.entity';
+import { Employee } from './employee.entity';
 
 @ObjectType()
 @Entity()
@@ -27,6 +31,19 @@ export class Company extends BaseEntity {
   @Column({ type: 'varchar', length: 100, nullable: false })
   title: string;
 
+  @Field(() => [Employee], { description: 'Employee id', nullable: true })
+  @OneToMany(() => Employee, (employee) => employee.company, { cascade: true })
+  @JoinColumn({ name: 'employee_id' })
+  employees?: Employee[];
+
+  @Field(() => Float, { description: 'Tax rate' })
+  @Column({ type: 'float', nullable: false, default: 30.0 })
+  tax: number;
+
+  @Field({ description: 'Company currency' })
+  @Column({ type: 'enum', enum: Currency, default: Currency.EUR })
+  currency: Currency;
+
   @Field(() => Float, { description: 'Company revenue' })
   @Column({ type: 'float', nullable: false })
   revenue: number;
@@ -38,10 +55,10 @@ export class Company extends BaseEntity {
   @Field({ description: 'Date company joined' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
-  @Field({ description: 'Date company updated' })
+  @Field({ description: 'Date company is updated' })
   @Column({ type: 'datetime' })
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

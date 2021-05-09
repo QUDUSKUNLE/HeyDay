@@ -22,7 +22,7 @@ export class VouchersResolver {
    */
   @Mutation(() => Voucher)
   createVoucher(
-    @Args('createVoucher') createVoucher: CreateVoucher,
+    @Args('createVoucherInput') createVoucher: CreateVoucher,
   ): Promise<Voucher> {
     return this.vouchersService.create(createVoucher);
   }
@@ -45,9 +45,7 @@ export class VouchersResolver {
    * @returns Promise
    */
   @Query(() => Voucher, { name: 'voucher' })
-  findOne(
-    @Args('id', { type: () => Int }) id: number,
-  ): Promise<Voucher | string> {
+  findOne(@Args('id', { type: () => Int }) id: number): Promise<Voucher> {
     return this.vouchersService.findOne(id);
   }
 
@@ -60,8 +58,8 @@ export class VouchersResolver {
    */
   @Mutation(() => Voucher)
   updateVoucher(
-    @Args('updateVoucher') updateVoucher: UpdateVoucher,
-  ): Promise<Voucher | string> {
+    @Args('updateVoucherInput') updateVoucher: UpdateVoucher,
+  ): Promise<Voucher> {
     return this.vouchersService.update(updateVoucher.id, updateVoucher);
   }
 

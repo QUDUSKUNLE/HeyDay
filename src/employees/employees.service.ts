@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DeleteResult } from 'typeorm';
+import { Repository, DeleteResult, DeepPartial } from 'typeorm';
 import { CreateEmployee } from './dto/create-employee.input';
 import { UpdateEmployee } from './dto/update-employee.input';
 import { Employee } from '../entities/employee.entity';
+import { Company } from '../entities/company.entity';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 @Injectable()
 export class EmployeesService {
@@ -14,35 +16,38 @@ export class EmployeesService {
   constructor(
     @InjectRepository(Employee)
     private employeeRepository: Repository<Employee>,
+    @InjectRepository(Company)
+    private companyRepository: Repository<Company>,
   ) {}
 
   /**
-   * @param  {CreateEmployeeInput} createEmployee
+   * @param  {CreateEmployee} createEmployee
    */
   async create(createEmployee: CreateEmployee) {
-    try {
-      const employee = await this.employeeRepository.save(createEmployee);
-      return employee;
-    } catch (error) {
-      throw error;
-    }
+    const company:
+      | DeepPartial<Company>
+      | number = await this.companyRepository.findOne(createEmployee.company);
+    return await this.employeeRepository.save({
+      ...createEmployee,
+      company,
+    } as any);
   }
 
   /**
    * @returns Promise
    */
   async findAll(): Promise<Employee[]> {
-    return await this.employeeRepository.find();
+    return await this.employeeRepository.find({ relations: ['company'] });
   }
 
   /**
    * @param  {number} id
    * @returns Promise
    */
-  async findOne(id: number): Promise<Employee | string> {
-    const employee = await this.employeeRepository.findOneOrFail(id);
-    if (!employee.id) return 'Employee does not exist';
-    return employee;
+  async findOne(id: number): Promise<Employee | DeepPartial<Employee>> {
+    return await this.employeeRepository.findOneOrFail(id, {
+      relations: ['company'],
+    });
   }
 
   /**
@@ -50,13 +55,14 @@ export class EmployeesService {
    * @param  {Employees} updateEmployee
    * @returns Promise
    */
-  async update(
-    id: number,
-    updateEmployee: UpdateEmployee,
-  ): Promise<Employee | string> {
-    const employee = await this.employeeRepository.findOne(id);
-    if (!employee.id) return 'Employee does not exist';
-    await this.employeeRepository.update(id, updateEmployee);
+  async update(id: number, updateEmployee: UpdateEmployee): Promise<Employee> {
+    const company: QueryDeepPartialEntity<Company> = await this.companyRepository.findOne(
+      updateEmployee.company,
+    );
+    await this.employeeRepository.update(id, {
+      ...updateEmployee,
+      company,
+    } as any);
     return await this.employeeRepository.findOne(id);
   }
 

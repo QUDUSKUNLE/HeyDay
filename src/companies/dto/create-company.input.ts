@@ -1,19 +1,23 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field, Float } from '@nestjs/graphql';
+import { Currency } from '../../entities/common.entity';
 
 @InputType()
 export class CreateCompany {
-  @Field()
+  @Field({ description: 'Company name' })
   readonly name: string;
 
-  @Field()
+  @Field({ description: 'Company address' })
   readonly address: string;
 
-  @Field()
+  @Field({ description: 'Company title' })
   readonly title: string;
 
-  @Field(() => Int, { description: 'Company revenue' })
+  @Field({ description: 'Company currency' })
+  readonly currency: Currency;
+
+  @Field(() => Float, { description: 'Company revenue' })
   readonly revenue: number;
 
-  @Field(() => Int, { description: 'Amount budgted for an employee' })
+  @Field(() => Float, { description: 'Amount budgted for an employee' })
   readonly budget: number;
 }

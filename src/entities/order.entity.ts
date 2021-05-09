@@ -6,7 +6,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  ManyToOne,
   ManyToMany,
+  JoinColumn,
+  JoinTable,
 } from 'typeorm';
 import { Employee } from './employee.entity';
 import { Voucher } from './voucher.entity';
@@ -14,30 +17,35 @@ import { Voucher } from './voucher.entity';
 @ObjectType()
 @Entity()
 export class Order extends BaseEntity {
-  @Field(() => Int, { description: 'Order id' })
+  @Field(() => Int, { description: 'Order id', nullable: true })
   @PrimaryGeneratedColumn()
   id: number;
 
   @Field({ description: 'Order date' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  order_at: Date;
+  orderedAt: Date;
 
   @Field({ description: 'Order created' })
   @Column({ type: 'datetime' })
   @CreateDateColumn()
-  created_at: Date;
+  createdAt: Date;
 
-  @Field(() => Employee, { description: 'Employee id' })
-  @ManyToMany(() => Employee, (employee) => employee.id, { primary: true })
+  @Field(() => Employee, { description: 'Employee id', nullable: true })
+  @ManyToOne(() => Employee, (employee) => employee.id, { primary: true })
+  @JoinColumn({ name: 'employee_id' })
   employee: Employee;
 
-  @Field(() => Voucher, { description: 'Voucher id' })
-  @ManyToMany(() => Voucher, (voucher) => voucher.id, { primary: true })
-  voucher: Voucher;
+  @Field(() => Voucher, { description: 'Voucher id', nullable: true })
+  @ManyToMany(() => Voucher, (voucher) => voucher.orders, {
+    eager: false,
+    cascade: true,
+  })
+  @JoinTable()
+  vouchers: Voucher[];
 
   @Field({ description: 'Date order updated' })
   @Column({ type: 'datetime' })
   @UpdateDateColumn()
-  updated_at: Date;
+  updatedAt: Date;
 }

@@ -1,12 +1,10 @@
-import { InputType, Field } from '@nestjs/graphql';
-import { CreateEmployee } from '../../employees/dto/create-employee.input';
-import { CreateVoucher } from '../../vouchers/dto/create-voucher.input';
+import { InputType, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateOrder {
-  @Field(() => CreateEmployee, { description: 'Employee id' })
-  employee: CreateEmployee;
+  @Field(() => Int, { description: 'Employee id' })
+  employee: number;
 
-  @Field(() => CreateVoucher, { description: 'Voucher id' })
-  voucher: CreateVoucher;
+  @Field(() => Int, { description: 'Voucher id' })
+  vouchers: number;
 }

@@ -1,14 +1,13 @@
-import { InputType, Float, Field } from '@nestjs/graphql';
-import { CreateCompany } from '../../companies/dto/create-company.input';
+import { InputType, Float, Field, Int } from '@nestjs/graphql';
 
 @InputType()
 export class CreateEmployee {
-  @Field()
+  @Field({ description: 'Employee name' })
   readonly name: string;
 
-  @Field(() => CreateCompany)
-  readonly company: CreateCompany;
+  @Field(() => Int, { description: 'Company id' })
+  company: any;
 
   @Field(() => Float, { description: 'Amount spent on voucher' })
-  readonly amount_spent: number;
+  readonly amountSpent: number;
 }

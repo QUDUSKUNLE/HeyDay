@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import { ConfigModule } from '@nestjs/config';
 
 import { Company } from './entities/company.entity';
 import { CompaniesModule } from './companies/companies.module';

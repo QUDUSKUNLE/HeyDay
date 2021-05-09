@@ -6,8 +6,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   BaseEntity,
+  ManyToMany,
 } from 'typeorm';
-import { Currency } from './common.entity';
+import { Currency, Category } from './common.entity';
+import { Order } from './order.entity';
 
 @ObjectType()
 @Entity()
@@ -20,9 +22,21 @@ export class Voucher extends BaseEntity {
   @Column({ type: 'float', nullable: false })
   cost: number;
 
+  @Field({ description: 'Voucher category' })
+  @Column({ type: 'enum', enum: Category, default: Category.SMALL })
+  category: Category;
+
+  @Field({ description: 'Voucher name' })
+  @Column({ type: 'varchar', nullable: false, unique: true })
+  name: string;
+
+  @Field(() => [Order], { description: 'Vouchers ordered' })
+  @ManyToMany(() => Order, (order) => order.vouchers, { eager: false })
+  orders: Order[];
+
   @Field({ description: 'Voucher currency' })
   @Column({ type: 'enum', enum: Currency, default: Currency.EUR })
-  currency: Currency;
+  currency?: Currency;
 
   @Field({ description: 'Date voucher is created' })
   @Column({ type: 'datetime' })

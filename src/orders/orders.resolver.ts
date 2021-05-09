@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { DeleteResult } from 'typeorm';
+import { DeleteResult, DeepPartial } from 'typeorm';
 
 import { Order } from '../entities/order.entity';
 import { OrdersService } from './orders.service';
@@ -23,7 +23,7 @@ export class OrdersResolver {
   @Mutation(() => Order)
   createOrder(
     @Args('createOrderInput') createOrder: CreateOrder,
-  ): Promise<Order> {
+  ): Promise<Order[]> {
     return this.ordersService.create(createOrder);
   }
 
@@ -34,7 +34,7 @@ export class OrdersResolver {
    * @returns Promise
    */
   @Query(() => [Order], { name: 'orders' })
-  findAll(): Promise<Order[]> {
+  findAll(): Promise<Order[] | DeepPartial<Order>[]> {
     return this.ordersService.findAll();
   }
 
@@ -47,7 +47,7 @@ export class OrdersResolver {
   @Query(() => Order, { name: 'order' })
   findOne(
     @Args('id', { type: () => Int }) id: number,
-  ): Promise<Order | string> {
+  ): Promise<Order | DeepPartial<Order>> {
     return this.ordersService.findOne(id);
   }
 
@@ -61,7 +61,7 @@ export class OrdersResolver {
   @Mutation(() => Order)
   updateOrder(
     @Args('updateOrderInput') updateOrder: UpdateOrder,
-  ): Promise<Order | string> {
+  ): Promise<Order | DeepPartial<Order>> {
     return this.ordersService.update(updateOrder.id, updateOrder);
   }
 
