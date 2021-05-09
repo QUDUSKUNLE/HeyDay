@@ -28,5 +28,5 @@ lerna-debug.log*
 
 # IDE - VSCode
 .vscode
-README.md
 .env
+docker-compose.yml

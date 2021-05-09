@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
-// import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 
 import { Company } from './entities/company.entity';
 import { CompaniesModule } from './companies/companies.module';
@@ -22,18 +22,20 @@ import { Order } from './entities/order.entity';
 import { OrdersModule } from './orders/orders.module';
 import { OrdersResolver } from './orders/orders.resolver';
 import { OrdersService } from './orders/orders.service';
+
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     GraphQLModule.forRoot({
       autoSchemaFile: 'schema.gql',
     }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Boluwatife08971',
-      database: 'heyday',
+      type: process.env.DATABASE_TYPE as any,
+      host: process.env.POSTGRES_HOST,
+      port: process.env.POSTGRES_PORT as any,
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       entities: [Company, Employee, Voucher, Order],
       synchronize: true,
     }),
@@ -48,7 +50,6 @@ import { OrdersService } from './orders/orders.service';
     EmployeesResolver,
     VouchersResolver,
     OrdersResolver,
-
     CompaniesService,
     EmployeesService,
     VouchersService,
