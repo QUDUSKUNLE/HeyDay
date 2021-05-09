@@ -17,7 +17,7 @@ import { Voucher } from './voucher.entity';
 @ObjectType()
 @Entity()
 export class Order extends BaseEntity {
-  @Field(() => Int, { description: 'Order id', nullable: true })
+  @Field(() => Int, { description: 'Order id' })
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -31,7 +31,7 @@ export class Order extends BaseEntity {
   @CreateDateColumn()
   createdAt: Date;
 
-  @Field(() => Employee, { description: 'Employee id', nullable: true })
+  @Field(() => Employee, { description: 'Employee id' })
   @ManyToOne(() => Employee, (employee) => employee.id, { primary: true })
   @JoinColumn({ name: 'employee_id' })
   employee: Employee;

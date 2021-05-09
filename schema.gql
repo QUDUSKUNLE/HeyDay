@@ -35,7 +35,7 @@ scalar DateTime
 
 type Order {
   """Order id"""
-  id: Int
+  id: Int!
 
   """Order date"""
   orderedAt: DateTime!
@@ -44,7 +44,7 @@ type Order {
   createdAt: DateTime!
 
   """Employee id"""
-  employee: Employee
+  employee: Employee!
 
   """Voucher id"""
   vouchers: [Voucher!]!
