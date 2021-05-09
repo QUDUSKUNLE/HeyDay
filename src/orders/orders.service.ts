@@ -33,7 +33,7 @@ export class OrdersService {
       | number = await this.employeeRepository.findOne(createOrder.employee);
     const voucher:
       | DeepPartial<Voucher>
-      | number = await this.voucherRepository.findOne(createOrder.vouchers, {
+      | number = await this.voucherRepository.findOne(createOrder.voucher, {
       relations: ['orders'],
     });
 
@@ -83,7 +83,7 @@ export class OrdersService {
     const employee = await this.employeeRepository.findOne(
       updateOrder.employee,
     );
-    const vouchers = await this.voucherRepository.findOne(updateOrder.vouchers);
+    const vouchers = await this.voucherRepository.findOne(updateOrder.voucher);
     await this.orderRepository.update(id, {
       ...updateOrder,
       employee,

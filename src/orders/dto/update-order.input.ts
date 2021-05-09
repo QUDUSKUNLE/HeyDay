@@ -6,8 +6,8 @@ export class UpdateOrder {
   readonly id: number;
 
   @Field(() => Int, { description: 'Employee id' })
-  employee: number;
+  employee?: number;
 
   @Field(() => Int, { description: 'Voucher id' })
-  vouchers: number;
+  voucher?: number;
 }

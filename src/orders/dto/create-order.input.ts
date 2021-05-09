@@ -6,5 +6,5 @@ export class CreateOrder {
   employee: number;
 
   @Field(() => Int, { description: 'Voucher id' })
-  vouchers: number;
+  voucher: number;
 }

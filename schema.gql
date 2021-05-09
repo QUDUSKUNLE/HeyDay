@@ -241,7 +241,7 @@ input CreateOrder {
   employee: Int!
 
   """Voucher id"""
-  vouchers: Int!
+  voucher: Int!
 }
 
 input UpdateOrder {
@@ -252,5 +252,5 @@ input UpdateOrder {
   employee: Int!
 
   """Voucher id"""
-  vouchers: Int!
+  voucher: Int!
 }
