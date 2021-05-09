@@ -38,7 +38,7 @@ export class Order extends BaseEntity {
 
   @Field(() => [Voucher], { description: 'List of vouchers' })
   @ManyToMany(() => Voucher, (voucher) => voucher.orders)
-  @JoinTable()
+  @JoinTable({ name: 'vouchers_orders' })
   vouchers: Voucher[];
 
   @Field({ description: 'Date order updated' })
