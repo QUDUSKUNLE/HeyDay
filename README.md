@@ -1,4 +1,8 @@
 # HeyDay
+
+[![HeyDay CI](https://github.com/QUDUSKUNLE/HeyDay/actions/workflows/main.yml/badge.svg)](https://github.com/QUDUSKUNLE/HeyDay/actions/workflows/main.yml)
+
+
 A Simple GraphQL API that tracks employees expenditures on vouchers per month
 
 ## Installation
@@ -33,6 +37,6 @@ $ localhost:{PORT}/graphql
 
 Improvements:
   1. Having issues populating Order and Voucher Tables, I'm still looking to fix that.
-  2. 
+  2.
 
   
