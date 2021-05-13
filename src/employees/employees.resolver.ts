@@ -6,7 +6,6 @@ import { Employee } from '../entities/employee.entity';
 import { CreateEmployee } from './dto/create-employee.input';
 import { UpdateEmployee } from './dto/update-employee.input';
 
-
 @Resolver(() => Employee)
 export class EmployeesResolver {
   /**
